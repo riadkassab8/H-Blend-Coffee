@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Star, Globe, Flame, Trophy, Leaf } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Navbar } from "@/components/layout/Navbar";
@@ -70,10 +70,10 @@ const galleryCaptions = [
 ];
 
 const whyItems = [
-  { num: "01", title: "Single Origin Beans", desc: "Every bean traced to its farm. Transparency in every bag." },
-  { num: "02", title: "Hand-Crafted Daily", desc: "Roasted in small batches. Brewed to order. Never rushed." },
-  { num: "03", title: "Award-Winning Roasts", desc: "8 regional awards since 2021. Quality you can taste." },
-  { num: "04", title: "Direct Trade", desc: "We pay farmers above market. The cup reflects those relationships." },
+  { Icon: Leaf, title: "Single Origin Beans", desc: "Every bean traced to its farm. Transparency in every bag." },
+  { Icon: Flame, title: "Hand-Crafted Daily", desc: "Roasted in small batches. Brewed to order. Never rushed." },
+  { Icon: Trophy, title: "Award-Winning Roasts", desc: "8 regional awards since 2021. Quality you can taste." },
+  { Icon: Globe, title: "Direct Trade", desc: "We pay farmers above market. The cup reflects those relationships." },
 ];
 
 const processSteps = [
@@ -127,6 +127,17 @@ export default function Home() {
             }}
           />
         </div>
+
+        {/* Film grain overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: 0.035,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat",
+            backgroundSize: "180px 180px",
+          }}
+        />
 
         {/* Floating beans */}
         {beans.map((b, i) => <CoffeeBean key={i} {...b} />)}
@@ -275,7 +286,9 @@ export default function Home() {
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className="p-6 rounded-2xl border border-border bg-background hover:border-accent/30 transition-colors duration-300"
               >
-                <span className="font-serif text-3xl font-bold text-accent/20 block mb-3">{item.num}</span>
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <item.Icon size={18} className="text-accent" />
+                </div>
                 <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
@@ -457,9 +470,19 @@ export default function Home() {
               data-testid={`gallery-item-${i}`}
               className={`group relative overflow-hidden rounded-xl cursor-pointer ${i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""}`}
             >
-              <div className={`bg-gradient-to-br ${gradients[i % gradients.length]} ${i === 0 || i === 5 ? "h-64 md:h-full md:min-h-[320px]" : "h-40 md:h-48"} transition-transform duration-500 group-hover:scale-105`} />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
-                <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">{caption}</span>
+              <div className={`bg-gradient-to-br ${gradients[i % gradients.length]} ${i === 0 || i === 5 ? "h-64 md:h-full md:min-h-[320px]" : "h-40 md:h-48"} transition-transform duration-700 group-hover:scale-110`}>
+                {/* inner texture */}
+                <div className="absolute inset-0 opacity-[0.04]"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                    backgroundSize: "150px 150px",
+                  }}
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <span className="text-white/80 text-xs font-medium uppercase tracking-widest">{caption}</span>
               </div>
             </motion.div>
           ))}

@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Menu from "@/pages/Menu";
@@ -62,6 +63,7 @@ function App() {
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <LoadingScreen />
             <CustomCursor />
+            <WhatsAppButton />
             <AnimatedRoutes />
           </WouterRouter>
           <Toaster />

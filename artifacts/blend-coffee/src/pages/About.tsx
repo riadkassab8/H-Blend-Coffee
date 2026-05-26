@@ -130,7 +130,7 @@ export default function About() {
                 <div className={`${i % 2 === 0 ? "lg:text-right" : "lg:col-start-2"} mb-6 lg:mb-0`}>
                   <span className="font-serif text-5xl font-bold text-accent/20">{item.year}</span>
                   <h3 className="font-serif text-2xl font-bold text-foreground mt-1 mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed max-w-sm ${i % 2 === 0 ? 'ml-auto' : ''}">{item.description}</p>
+                  <p className={`text-muted-foreground leading-relaxed max-w-sm ${i % 2 === 0 ? "lg:ml-auto" : ""}`}>{item.description}</p>
                 </div>
                 <div className={`${i % 2 === 0 ? "lg:col-start-2" : ""} hidden lg:flex items-center ${i % 2 === 0 ? "justify-start" : "justify-end"}`}>
                   <div className="w-4 h-4 rounded-full bg-accent" />
