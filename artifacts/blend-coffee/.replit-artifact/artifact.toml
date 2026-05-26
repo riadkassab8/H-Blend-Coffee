@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "BLEND Coffee"
+version = "1.0.0"
+id = "artifacts/blend-coffee"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19309
+
+[services.development]
+run = "pnpm --filter @workspace/blend-coffee run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/blend-coffee", "run", "build" ]
+publicDir = "artifacts/blend-coffee/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19309"
+BASE_PATH = "/"
