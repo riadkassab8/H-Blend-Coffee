@@ -128,3 +128,127 @@
 2026-05-26T19:10:11.445517Z  INFO get_globs:discover_sources: tailwindcss_oxide::scanner: enter
 2026-05-26T19:10:11.445543Z  INFO get_globs:discover_sources: tailwindcss_oxide::scanner: exit
 2026-05-26T19:10:11.451419Z  INFO get_globs: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.037339Z  INFO discover_sources: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.037391Z  INFO discover_sources:walk_parallel: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.047854Z  INFO discover_sources:walk_parallel: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\field.tsx"
+2026-05-26T19:12:07.051427Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\separator.tsx"
+2026-05-26T19:12:07.051410Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Home.tsx"
+2026-05-26T19:12:07.051410Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\item.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\alert-dialog.tsx"
+2026-05-26T19:12:07.051506Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\button-group.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\command.tsx"
+2026-05-26T19:12:07.051526Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\toast.tsx"
+2026-05-26T19:12:07.051532Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\form.tsx"
+2026-05-26T19:12:07.051541Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\translations.ts"
+2026-05-26T19:12:07.051544Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\select.tsx"
+2026-05-26T19:12:07.051423Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\slider.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\TRANSLATION_COMPLETE.md"
+2026-05-26T19:12:07.051597Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\accordion.tsx"
+2026-05-26T19:12:07.051543Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\.replit-artifact\\artifact.toml"
+2026-05-26T19:12:07.051623Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\collapsible.tsx"
+2026-05-26T19:12:07.051638Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\empty.tsx"
+2026-05-26T19:12:07.051654Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\scroll-area.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\main.tsx"
+2026-05-26T19:12:07.051687Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\hooks\\use-toast.ts"
+2026-05-26T19:12:07.051704Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\drawer.tsx"
+2026-05-26T19:12:07.051565Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\TRANSLATION_STATUS.md"
+2026-05-26T19:12:07.051579Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\card.tsx"
+2026-05-26T19:12:07.051752Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\dialog.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\chart.tsx"
+2026-05-26T19:12:07.051776Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\sonner.tsx"
+2026-05-26T19:12:07.051613Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\textarea.tsx"
+2026-05-26T19:12:07.051626Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\skeleton.tsx"
+2026-05-26T19:12:07.051823Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\App.tsx"
+2026-05-26T19:12:07.051834Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\pagination.tsx"
+2026-05-26T19:12:07.051837Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\TRANSLATION_GUIDE.md"
+2026-05-26T19:12:07.051410Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Menu.tsx"
+2026-05-26T19:12:07.051865Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\tabs.tsx"
+2026-05-26T19:12:07.051669Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ThemeProvider.tsx"
+2026-05-26T19:12:07.051888Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\progress.tsx"
+2026-05-26T19:12:07.051410Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\blogPosts.ts"
+2026-05-26T19:12:07.051688Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\MENU_TRANSLATION_COMPLETE.md"
+2026-05-26T19:12:07.051710Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\index.html"
+2026-05-26T19:12:07.051737Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\vite.config.ts"
+2026-05-26T19:12:07.051780Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Blog.tsx"
+2026-05-26T19:12:07.051835Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\FAQ.tsx"
+2026-05-26T19:12:07.052093Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\HOW_TO_RUN.md"
+2026-05-26T19:12:07.052094Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\COMPLETE_TRANSLATIONS.md"
+2026-05-26T19:12:07.052064Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\aboutData.ts"
+2026-05-26T19:12:07.051964Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\hooks\\use-mobile.tsx"
+2026-05-26T19:12:07.051924Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\contexts\\LanguageContext.tsx"
+2026-05-26T19:12:07.051957Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\public\\favicon.svg"
+2026-05-26T19:12:07.051952Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\hooks\\useTranslatedData.ts"
+2026-05-26T19:12:07.052124Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\tsconfig.json"
+2026-05-26T19:12:07.051938Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\popover.tsx"
+2026-05-26T19:12:07.051409Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\label.tsx"
+2026-05-26T19:12:07.051908Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\About.tsx"
+2026-05-26T19:12:07.052217Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\#md\\ABOUT_TRANSLATION_COMPLETE.md"
+2026-05-26T19:12:07.051853Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\dropdown-menu.tsx"
+2026-05-26T19:12:07.051848Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\layout\\Footer.tsx"
+2026-05-26T19:12:07.052250Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\resizable.tsx"
+2026-05-26T19:12:07.052180Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Contact.tsx"
+2026-05-26T19:12:07.052216Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\products.ts"
+2026-05-26T19:12:07.052320Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\kbd.tsx"
+2026-05-26T19:12:07.052329Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Reservations.tsx"
+2026-05-26T19:12:07.052246Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\contexts\\CartContext.tsx"
+2026-05-26T19:12:07.052359Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\Cart.tsx"
+2026-05-26T19:12:07.052366Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\lib\\utils.ts"
+2026-05-26T19:12:07.052254Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\WhatsAppButton.tsx"
+2026-05-26T19:12:07.052383Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\contactData.ts"
+2026-05-26T19:12:07.052391Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\context-menu.tsx"
+2026-05-26T19:12:07.052405Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\radio-group.tsx"
+2026-05-26T19:12:07.052277Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\calendar.tsx"
+2026-05-26T19:12:07.052424Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\carousel.tsx"
+2026-05-26T19:12:07.052322Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\breadcrumb.tsx"
+2026-05-26T19:12:07.052448Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\testimonials.ts"
+2026-05-26T19:12:07.051932Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\table.tsx"
+2026-05-26T19:12:07.052171Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\components.json"
+2026-05-26T19:12:07.052480Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\input-otp.tsx"
+2026-05-26T19:12:07.052490Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\spinner.tsx"
+2026-05-26T19:12:07.052397Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\CustomCursor.tsx"
+2026-05-26T19:12:07.052418Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\data\\faqData.ts"
+2026-05-26T19:12:07.052178Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\hover-card.tsx"
+2026-05-26T19:12:07.052512Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\LoadingScreen.tsx"
+2026-05-26T19:12:07.052549Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\sidebar.tsx"
+2026-05-26T19:12:07.052556Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\menubar.tsx"
+2026-05-26T19:12:07.052542Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\badge.tsx"
+2026-05-26T19:12:07.052586Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\public\\robots.txt"
+2026-05-26T19:12:07.052448Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\switch.tsx"
+2026-05-26T19:12:07.052480Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\tooltip.tsx"
+2026-05-26T19:12:07.052353Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\pages\\not-found.tsx"
+2026-05-26T19:12:07.052632Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\checkbox.tsx"
+2026-05-26T19:12:07.052632Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\toggle.tsx"
+2026-05-26T19:12:07.052639Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\avatar.tsx"
+2026-05-26T19:12:07.052492Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\layout\\Navbar.tsx"
+2026-05-26T19:12:07.052490Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\button.tsx"
+2026-05-26T19:12:07.052676Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\toggle-group.tsx"
+2026-05-26T19:12:07.052685Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\input.tsx"
+2026-05-26T19:12:07.052587Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\package.json"
+2026-05-26T19:12:07.052454Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\navigation-menu.tsx"
+2026-05-26T19:12:07.052597Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\input-group.tsx"
+2026-05-26T19:12:07.052618Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\aspect-ratio.tsx"
+2026-05-26T19:12:07.052693Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\toaster.tsx"
+2026-05-26T19:12:07.052598Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\alert.tsx"
+2026-05-26T19:12:07.052638Z  INFO tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\components\\ui\\sheet.tsx"
+2026-05-26T19:12:07.052873Z  INFO discover_sources: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.052884Z  INFO extract_candidates: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.052889Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.052893Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.054427Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.054461Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.054468Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.054471Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading 1 file(s)
+2026-05-26T19:12:07.054565Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: Reading "E:\\Desktop folders\\react_app\\Coffes_E-commerce\\High_Budget_cost\\Blend-Coffee-Site\\artifacts\\blend-coffee\\src\\index.css"
+2026-05-26T19:12:07.054581Z  INFO extract_candidates:read_all_files: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.054589Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.054595Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.054793Z  INFO extract_candidates:extract_css_variables:extract: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.054809Z  INFO extract_candidates:extract_css_variables: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.055123Z  INFO extract_candidates: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.056719Z  INFO get_files: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.056739Z  INFO get_files:discover_sources: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.056744Z  INFO get_files:discover_sources: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.056900Z  INFO get_files: tailwindcss_oxide::scanner: exit
+2026-05-26T19:12:07.082753Z  INFO get_globs: tailwindcss_oxide::scanner: enter
+2026-05-26T19:12:07.082788Z  INFO get_globs: tailwindcss_oxide::scanner: exit
