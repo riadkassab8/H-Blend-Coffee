@@ -3,14 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Check, Instagram, Facebook } from "lucide-react";
-
-const branches = [
-  { name: "Maadi", address: "12 Road 9, Maadi, Cairo", phone: "+20 100 111 2233" },
-  { name: "Zamalek", address: "4 Hassan Sabri St, Zamalek", phone: "+20 100 111 2244" },
-  { name: "Downtown", address: "22 Talaat Harb, Downtown Cairo", phone: "+20 100 111 2255" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { branches, openingHours } from "@/data/contactData";
 
 export default function Contact() {
+  const { language, t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
@@ -34,10 +31,10 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Get in Touch</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">We'd love to hear from you.</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("contact.label")}</p>
+          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("contact.title")}</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Questions, feedback, wholesale enquiries, or just want to talk coffee — we're here.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -55,14 +52,14 @@ export default function Contact() {
                   <div className="w-14 h-14 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center mb-5">
                     <Check className="text-accent" size={24} />
                   </div>
-                  <h2 className="font-serif text-2xl font-bold text-foreground mb-2">Message received.</h2>
-                  <p className="text-muted-foreground text-sm">We'll get back to you within 24 hours.</p>
+                  <h2 className="font-serif text-2xl font-bold text-foreground mb-2">{t("contact.success")}</h2>
+                  <p className="text-muted-foreground text-sm">{t("contact.successMessage")}</p>
                   <button
                     data-testid="btn-send-another"
                     onClick={() => { setSubmitted(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
                     className="mt-6 text-sm text-accent hover:underline"
                   >
-                    Send another message
+                    {t("contact.sendAnother")}
                   </button>
                 </motion.div>
               ) : (
@@ -73,22 +70,22 @@ export default function Contact() {
                   onSubmit={handleSubmit}
                   className="bg-card border border-border rounded-2xl p-8 space-y-5"
                 >
-                  <h2 className="font-serif text-2xl font-bold text-foreground mb-6">Send a message</h2>
+                  <h2 className="font-serif text-2xl font-bold text-foreground mb-6">{t("contact.sendMessage")}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Name</label>
+                      <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("contact.name")}</label>
                       <input
                         data-testid="input-contact-name"
                         type="text"
                         value={form.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                         required
-                        placeholder="Your name"
+                        placeholder={language === "ar" ? "اسمك" : "Your name"}
                         className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Email</label>
+                      <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("contact.email")}</label>
                       <input
                         data-testid="input-contact-email"
                         type="email"
@@ -101,25 +98,25 @@ export default function Contact() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Subject</label>
+                    <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("contact.subject")}</label>
                     <input
                       data-testid="input-contact-subject"
                       type="text"
                       value={form.subject}
                       onChange={(e) => handleChange("subject", e.target.value)}
-                      placeholder="What's this about?"
+                      placeholder={language === "ar" ? "عن ماذا؟" : "What's this about?"}
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Message</label>
+                    <label className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("contact.message")}</label>
                     <textarea
                       data-testid="textarea-contact-message"
                       value={form.message}
                       onChange={(e) => handleChange("message", e.target.value)}
                       required
                       rows={5}
-                      placeholder="Tell us everything..."
+                      placeholder={language === "ar" ? "أخبرنا بكل شيء..." : "Tell us everything..."}
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all resize-none"
                     />
                   </div>
@@ -128,7 +125,7 @@ export default function Contact() {
                     data-testid="btn-submit-contact"
                     className="w-full py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-all duration-200 hover:shadow-md"
                   >
-                    Send Message
+                    {t("contact.send")}
                   </button>
                 </motion.form>
               )}
@@ -146,10 +143,10 @@ export default function Contact() {
             <div className="bg-card border border-border rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-4">
                 <Clock size={16} className="text-accent" />
-                <h3 className="font-semibold text-foreground">Opening Hours</h3>
+                <h3 className="font-semibold text-foreground">{t("contact.hours")}</h3>
               </div>
               <div className="space-y-2">
-                {["Monday – Friday: 7:00 AM – 11:00 PM", "Saturday: 8:00 AM – 11:00 PM", "Sunday: 8:00 AM – 10:00 PM"].map((line) => (
+                {(language === "ar" ? openingHours.ar : openingHours.en).map((line) => (
                   <p key={line} className="text-sm text-muted-foreground">{line}</p>
                 ))}
               </div>
@@ -160,15 +157,15 @@ export default function Contact() {
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-accent" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Email</p>
-                  <a href="mailto:hello@blendcoffee.eg" data-testid="link-email" className="text-sm text-foreground hover:text-accent transition-colors">hello@blendcoffee.eg</a>
+                  <p className="text-xs text-muted-foreground">{t("contact.email")}</p>
+                  <a href="mailto:hello@aromacoffee.eg" data-testid="link-email" className="text-sm text-foreground hover:text-accent transition-colors">hello@aromacoffee.eg</a>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} className="text-accent" />
                 <div>
-                  <p className="text-xs text-muted-foreground">General Line</p>
-                  <a href="tel:+201001234567" data-testid="link-phone" className="text-sm text-foreground hover:text-accent transition-colors">+20 100 123 4567</a>
+                  <p className="text-xs text-muted-foreground">{t("contact.generalLine")}</p>
+                  <a href="tel:+201098277229" data-testid="link-phone" className="text-sm text-foreground hover:text-accent transition-colors">+20 100 123 4567</a>
                 </div>
               </div>
             </div>
@@ -177,13 +174,13 @@ export default function Contact() {
             <div className="bg-card border border-border rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin size={16} className="text-accent" />
-                <h3 className="font-semibold text-foreground">Our Locations</h3>
+                <h3 className="font-semibold text-foreground">{t("contact.locations")}</h3>
               </div>
               <div className="space-y-4">
                 {branches.map((b) => (
                   <div key={b.name} className="border-b border-border pb-4 last:border-0 last:pb-0">
-                    <p className="text-sm font-semibold text-foreground">{b.name}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{b.address}</p>
+                    <p className="text-sm font-semibold text-foreground">{language === "ar" ? b.nameAr : b.name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{language === "ar" ? b.addressAr : b.address}</p>
                     <p className="text-xs text-muted-foreground">{b.phone}</p>
                   </div>
                 ))}
@@ -193,7 +190,7 @@ export default function Contact() {
             {/* WhatsApp + Social */}
             <div className="flex gap-3">
               <a
-                href="https://wa.me/201001234567"
+                href="https://wa.me/201098277229"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="btn-whatsapp"
@@ -207,7 +204,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="btn-instagram"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors text-sm font-medium"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-white hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:border-transparent transition-all duration-300 text-sm font-medium"
               >
                 <Instagram size={16} />
                 Instagram
@@ -217,7 +214,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="btn-facebook"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors text-sm font-medium"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] transition-all duration-300 text-sm font-medium"
               >
                 <Facebook size={16} />
                 Facebook

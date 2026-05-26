@@ -1,62 +1,76 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, ShoppingBag, X, Plus, Minus } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { products, categoryLabels, type Product } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Category = Product["category"] | "all";
 
-const allCategories: Category[] = ["all", "hot", "iced", "signature", "dessert", "beans", "merch"];
-
-const cardGradients = [
-  "from-[hsl(22_48%_16%)] to-[hsl(30_35%_22%)]",
-  "from-[hsl(20_18%_12%)] to-[hsl(22_48%_20%)]",
-  "from-[hsl(30_30%_18%)] to-[hsl(20_18%_12%)]",
-  "from-[hsl(22_40%_20%)] to-[hsl(38_50%_18%)]",
-  "from-[hsl(20_18%_14%)] to-[hsl(30_25%_20%)]",
-  "from-[hsl(22_48%_18%)] to-[hsl(20_16%_14%)]",
-];
+const allCategories: Category[] = ["all", "beans", "ground", "capsules", "equipment", "drinks", "accessories"];
 
 function ProductCard({ product, index, onOpen }: { product: Product; index: number; onOpen: (p: Product) => void }) {
   const [wished, setWished] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const { addToCart } = useCart();
+  const { t, language } = useLanguage();
+  
+  const productName = language === "ar" ? product.nameAr : product.name;
+  const productDescription = language === "ar" ? product.descriptionAr : product.description;
+  const productBadge = product.badge ? (language === "ar" ? product.badgeAr : product.badge) : undefined;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: (index % 6) * 0.06, duration: 0.5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: Math.min(index * 0.05, 0.3), duration: 0.4 }}
       data-testid={`card-product-${product.id}`}
       className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg"
     >
       {/* Image Area */}
       <div
-        className={`relative h-44 bg-gradient-to-br ${cardGradients[index % cardGradients.length]} cursor-pointer overflow-hidden`}
+        className="relative h-44 cursor-pointer overflow-hidden bg-muted"
         onClick={() => onOpen(product)}
       >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full border-2 border-accent/40" />
+        {!imageLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
           </div>
-        </div>
-        {product.badge && (
-          <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full">
-            {product.badge}
+        )}
+        <img 
+          src={product.image} 
+          alt={product.name}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          onError={(e) => {
+            e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
+            setImageLoaded(true);
+          }}
+          className={`w-full h-full object-cover transition-all duration-700 ${imageLoaded ? 'opacity-100 group-hover:scale-110' : 'opacity-0'}`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        {productBadge && (
+          <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full z-10">
+            {productBadge}
           </span>
         )}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <span className="text-white text-xs font-semibold uppercase tracking-widest">Quick View</span>
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <span className="text-white text-xs font-semibold uppercase tracking-widest">{t("menu.quickView")}</span>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-5">
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="font-serif text-lg font-bold text-foreground leading-tight">{product.name}</h3>
+          <h3 className="font-serif text-lg font-bold text-foreground leading-tight">{productName}</h3>
           <button
             data-testid={`btn-wish-${product.id}`}
-            onClick={() => setWished((v) => !v)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setWished((v) => !v);
+            }}
             className="shrink-0 mt-0.5"
             aria-label="Add to wishlist"
           >
@@ -66,17 +80,21 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
             />
           </button>
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">{product.description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">{productDescription}</p>
         <div className="flex items-center justify-between">
           <span className="font-semibold text-foreground" data-testid={`text-price-${product.id}`}>
-            {product.price} EGP
+            {product.price} {t("common.egp")}
           </span>
           <button
             data-testid={`btn-add-cart-${product.id}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              addToCart(product.id, 1);
+            }}
             className="flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-foreground text-xs font-semibold rounded-full hover:bg-accent/90 transition-all duration-200"
           >
             <ShoppingBag size={12} />
-            Add
+            {t("menu.addToCart")}
           </button>
         </div>
       </div>
@@ -86,7 +104,17 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
 
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   const [qty, setQty] = useState(1);
-  const gradIdx = product.id % cardGradients.length;
+  const { addToCart } = useCart();
+  const { t, language } = useLanguage();
+  
+  const productName = language === "ar" ? product.nameAr : product.name;
+  const productDescription = language === "ar" ? product.descriptionAr : product.description;
+  const productBadge = product.badge ? (language === "ar" ? product.badgeAr : product.badge) : undefined;
+
+  const handleAddToCart = () => {
+    addToCart(product.id, qty);
+    onClose();
+  };
 
   return (
     <motion.div
@@ -105,21 +133,26 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
         onClick={(e) => e.stopPropagation()}
         data-testid="modal-product"
       >
-        <div className={`h-52 bg-gradient-to-br ${cardGradients[gradIdx]} relative`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full border-2 border-accent/40" />
-            </div>
-          </div>
-          {product.badge && (
-            <span className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-accent text-accent-foreground rounded-full">
-              {product.badge}
+        <div className="h-52 relative overflow-hidden">
+          <img 
+            src={product.image} 
+            alt={productName}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
+            }}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          {productBadge && (
+            <span className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-accent text-accent-foreground rounded-full z-10">
+              {productBadge}
             </span>
           )}
           <button
             data-testid="btn-close-modal"
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10"
           >
             <X size={16} />
           </button>
@@ -127,13 +160,13 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
         <div className="p-6">
           <div className="flex items-start justify-between gap-3 mb-2">
-            <h2 className="font-serif text-2xl font-bold text-foreground">{product.name}</h2>
-            <span className="text-lg font-bold text-accent shrink-0">{product.price} EGP</span>
+            <h2 className="font-serif text-2xl font-bold text-foreground">{productName}</h2>
+            <span className="text-lg font-bold text-accent shrink-0">{product.price} {t("common.egp")}</span>
           </div>
           <span className="inline-block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-            {categoryLabels[product.category]}
+            {t(`category.${product.category}`)}
           </span>
-          <p className="text-muted-foreground leading-relaxed mb-4">{product.description}</p>
+          <p className="text-muted-foreground leading-relaxed mb-4">{productDescription}</p>
           {product.ingredients && (
             <div className="mb-6 p-4 bg-background rounded-xl border border-border">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">Ingredients</p>
@@ -161,10 +194,11 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             </div>
             <button
               data-testid="btn-modal-add-cart"
+              onClick={handleAddToCart}
               className="flex-1 flex items-center justify-center gap-2 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200"
             >
               <ShoppingBag size={16} />
-              Add to Cart &mdash; {product.price * qty} EGP
+              {t("menu.addToCart")} &mdash; {product.price * qty} {t("common.egp")}
             </button>
           </div>
         </div>
@@ -176,8 +210,16 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { t } = useLanguage();
 
   const filtered = activeCategory === "all" ? products : products.filter((p) => p.category === activeCategory);
+
+  // Simulate initial load
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -190,8 +232,8 @@ export default function Menu() {
           transition={{ duration: 0.6 }}
           className="mb-10"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Our Menu</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Every cup, considered.</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("menu.label")}</p>
+          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("menu.title")}</h1>
         </motion.div>
 
         {/* Category Tabs */}
@@ -207,22 +249,32 @@ export default function Menu() {
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
               }`}
             >
-              {cat === "all" ? "All" : categoryLabels[cat as Product["category"]]}
+              {cat === "all" ? t("menu.all") : t(`category.${cat}`)}
             </button>
           ))}
         </div>
 
         {/* Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          <AnimatePresence>
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="bg-card border border-border rounded-2xl overflow-hidden animate-pulse">
+                <div className="h-44 bg-muted" />
+                <div className="p-5 space-y-3">
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-3 bg-muted rounded w-full" />
+                  <div className="h-3 bg-muted rounded w-2/3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} onOpen={setSelectedProduct} />
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        )}
       </section>
 
       <AnimatePresence>

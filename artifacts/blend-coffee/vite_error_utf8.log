@@ -1,0 +1,21 @@
+﻿node.exe : $ vite --config vite.config.ts 
+--host 0.0.0.0
+At C:\Users\Riadkassab320\AppData\Roaming\n
+pm\pnpm.ps1:24 char:5
++     & "node$exe"  
+"$basedir/node_modules/pnpm/bin/pnpm.mjs" 
+$args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecif    
+ied: ($ vite --config... --host 0.0    
+.0.0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCom    
+mandError
+ 
+E0000 00:00:1779822139.585132    7560 
+ctxmenu.cc:220] UNKNOWN: From legacy 
+status [type.googleapis.com/drive.ds.Status
+='UNKNOWN_STATUS']
+=== Source Location Trace: ===
+apps/drive/fs/ipc/shell_ipc_client.cc:630

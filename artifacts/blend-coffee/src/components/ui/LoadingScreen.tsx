@@ -10,11 +10,29 @@ export function LoadingScreen() {
 
   useEffect(() => {
     if (!isLoading) return;
+    
+    // Force hide after 3 seconds max
     const timer = setTimeout(() => {
       setIsLoading(false);
       sessionStorage.setItem("blend-loaded", "1");
     }, 2200);
-    return () => clearTimeout(timer);
+    
+    // Also hide when page is fully loaded
+    const handleLoad = () => {
+      setIsLoading(false);
+      sessionStorage.setItem("blend-loaded", "1");
+    };
+    
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('load', handleLoad);
+    };
   }, [isLoading]);
 
   return (
@@ -62,7 +80,7 @@ export function LoadingScreen() {
                 className="font-serif text-5xl font-bold tracking-[0.35em]"
                 style={{ color: "hsl(38 82% 58%)" }}
               >
-                BLEND
+                AROMA
               </p>
               <motion.p
                 initial={{ opacity: 0 }}

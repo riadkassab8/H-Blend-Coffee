@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from "@/contexts/CartContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
@@ -14,6 +16,8 @@ import About from "@/pages/About";
 import Reservations from "@/pages/Reservations";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
+import Cart from "@/pages/Cart";
+import FAQ from "@/pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +52,8 @@ function AnimatedRoutes() {
           <Route path="/reservations" component={Reservations} />
           <Route path="/blog" component={Blog} />
           <Route path="/contact" component={Contact} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/faq" component={FAQ} />
           <Route component={NotFound} />
         </Switch>
       </motion.div>
@@ -58,17 +64,21 @@ function AnimatedRoutes() {
 function App() {
   return (
     <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <LoadingScreen />
-            <CustomCursor />
-            <WhatsAppButton />
-            <AnimatedRoutes />
-          </WouterRouter>
-          <Toaster />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <LanguageProvider>
+        <CartProvider>
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                <LoadingScreen />
+                <CustomCursor />
+                <WhatsAppButton />
+                <AnimatedRoutes />
+              </WouterRouter>
+              <Toaster />
+            </TooltipProvider>
+          </QueryClientProvider>
+        </CartProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

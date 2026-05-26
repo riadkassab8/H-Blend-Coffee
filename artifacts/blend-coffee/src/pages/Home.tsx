@@ -8,6 +8,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { featuredProducts, bestSellers } from "@/data/products";
 import { testimonials } from "@/data/testimonials";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 /* ── Animated counter ── */
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -67,6 +68,17 @@ const beans = [
 const galleryCaptions = [
   "Ethiopian Yirgacheffe", "The Morning Pour", "Cold Brew Vessel",
   "House Roast", "Latte Art", "Bean Selection", "The Grind", "Espresso Pull",
+];
+
+const galleryImages = [
+  "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=80",
+  "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+  "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80",
+  "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&q=80",
+  "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&q=80",
+  "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80",
+  "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&q=80",
+  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
 ];
 
 const whyItems = [
@@ -237,12 +249,17 @@ export default function Home() {
               className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className={`h-48 bg-gradient-to-br ${gradients[i % gradients.length]} relative`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full border border-accent/20 flex items-center justify-center">
-                    <div className="w-6 h-6 rounded-full bg-accent/20" />
-                  </div>
-                </div>
+              <div className="h-48 relative overflow-hidden">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
+                  }}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 {product.badge && (
                   <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full">
                     {product.badge}
@@ -273,7 +290,7 @@ export default function Home() {
             variants={fadeUp}
             className="text-center mb-16"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Why BLEND</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Why AROMA</p>
             <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Craft in every detail.</h2>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -323,8 +340,19 @@ export default function Home() {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-5">
             {bestSellers.map((product, i) => (
-              <div key={product.id} className="flex-none w-64 bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300" data-testid={`card-bestseller-${product.id}`}>
-                <div className={`h-36 bg-gradient-to-br ${gradients[i % gradients.length]}`} />
+              <div key={product.id} className="flex-none w-64 bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group" data-testid={`card-bestseller-${product.id}`}>
+                <div className="h-36 relative overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
+                    }}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                </div>
                 <div className="p-4">
                   <h3 className="font-serif font-bold text-foreground mb-1">{product.name}</h3>
                   <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{product.description}</p>
@@ -348,7 +376,7 @@ export default function Home() {
             >
               <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent/80 mb-4">Our Process</motion.p>
               <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold leading-tight mb-8">
-                The Art of<br />the <span className="text-accent italic">Blend.</span>
+                The Art of<br />the <span className="text-accent italic">Aroma.</span>
               </motion.h2>
               <div className="space-y-6">
                 {processSteps.map((step, i) => (
@@ -456,7 +484,7 @@ export default function Home() {
           className="text-center mb-12"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Gallery</p>
-          <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Moments at BLEND.</h2>
+          <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Moments at AROMA.</h2>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -470,17 +498,19 @@ export default function Home() {
               data-testid={`gallery-item-${i}`}
               className={`group relative overflow-hidden rounded-xl cursor-pointer ${i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""}`}
             >
-              <div className={`bg-gradient-to-br ${gradients[i % gradients.length]} ${i === 0 || i === 5 ? "h-64 md:h-full md:min-h-[320px]" : "h-40 md:h-48"} transition-transform duration-700 group-hover:scale-110`}>
-                {/* inner texture */}
-                <div className="absolute inset-0 opacity-[0.04]"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                    backgroundSize: "150px 150px",
+              <div className={`relative ${i === 0 || i === 5 ? "h-64 md:h-full md:min-h-[320px]" : "h-40 md:h-48"} overflow-hidden`}>
+                <img 
+                  src={galleryImages[i]} 
+                  alt={caption}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
                   }}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                 <span className="text-white/80 text-xs font-medium uppercase tracking-widest">{caption}</span>
               </div>
@@ -499,7 +529,7 @@ export default function Home() {
             variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
           >
             <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Newsletter</motion.p>
-            <motion.h2 variants={fadeUp} className="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-3">Join the BLEND Circle.</motion.h2>
+            <motion.h2 variants={fadeUp} className="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-3">Join the AROMA Circle.</motion.h2>
             <motion.p variants={fadeUp} className="text-sm text-muted-foreground mb-8">No spam. Coffee wisdom only.</motion.p>
             <motion.div variants={fadeUp}>
               <AnimatePresence mode="wait">

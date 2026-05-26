@@ -1,22 +1,27 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, Menu, X, ShoppingBag, Languages } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const navLinks = [
-  { href: "/menu", label: "Menu" },
-  { href: "/about", label: "About" },
-  { href: "/reservations", label: "Reservations" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/menu", label: "nav.menu" },
+  { href: "/about", label: "nav.about" },
+  { href: "/reservations", label: "nav.reservations" },
+  { href: "/blog", label: "nav.blog" },
+  { href: "/contact", label: "nav.contact" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { getTotalItems } = useCart();
+  const { language, toggleLanguage, t } = useLanguage();
   const [location] = useLocation();
+  const totalItems = getTotalItems();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -53,7 +58,7 @@ export function Navbar() {
               data-testid="nav-logo"
               className="font-serif text-2xl font-bold tracking-[0.2em] text-foreground hover:text-accent transition-colors duration-300"
             >
-              BLEND
+              AROMA
             </Link>
 
             {/* Desktop Nav */}
@@ -62,19 +67,42 @@ export function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  data-testid={`nav-link-${label.toLowerCase()}`}
+                  data-testid={`nav-link-${label}`}
                   className={`text-sm font-medium tracking-wide transition-colors duration-200 relative group ${
                     location === href ? "text-accent" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {label}
-                  <span className={`absolute -bottom-1 left-0 h-px bg-accent transition-all duration-300 ${location === href ? "w-full" : "w-0 group-hover:w-full"}`} />
+                  {t(label)}
+                  <span className={`absolute -bottom-1 ${language === 'ar' ? 'right-0' : 'left-0'} h-px bg-accent transition-all duration-300 ${location === href ? "w-full" : "w-0 group-hover:w-full"}`} />
                 </Link>
               ))}
             </div>
 
             {/* Right Controls */}
             <div className="flex items-center gap-3">
+              <Link
+                href="/cart"
+                data-testid="btn-cart"
+                className="hidden lg:flex w-9 h-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 relative"
+                aria-label="Shopping cart"
+              >
+                <ShoppingBag size={18} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent text-accent-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+
+              <button
+                data-testid="btn-toggle-language"
+                onClick={toggleLanguage}
+                className="hidden lg:flex w-9 h-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200"
+                aria-label="Toggle language"
+              >
+                <Languages size={16} />
+              </button>
+
               <button
                 data-testid="btn-toggle-theme"
                 onClick={toggleTheme}
@@ -89,7 +117,7 @@ export function Navbar() {
                 data-testid="btn-order-now"
                 className="hidden lg:inline-flex items-center px-5 py-2 bg-accent text-accent-foreground text-sm font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 hover:shadow-md"
               >
-                Order Now
+                {t("nav.orderNow")}
               </Link>
 
               {/* Mobile Hamburger */}
@@ -138,10 +166,10 @@ export function Navbar() {
                   >
                     <Link
                       href={href}
-                      data-testid={`mobile-nav-${label.toLowerCase()}`}
+                      data-testid={`mobile-nav-${label}`}
                       className="block py-4 font-serif text-4xl font-semibold text-foreground hover:text-accent transition-colors border-b border-border/30"
                     >
-                      {label}
+                      {t(label)}
                     </Link>
                   </motion.div>
                 ))}
@@ -158,8 +186,15 @@ export function Navbar() {
                   data-testid="mobile-btn-order"
                   className="px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full text-lg"
                 >
-                  Order Now
+                  {t("nav.orderNow")}
                 </Link>
+                <button
+                  data-testid="mobile-btn-language"
+                  onClick={toggleLanguage}
+                  className="w-12 h-12 flex items-center justify-center rounded-full border border-border text-muted-foreground"
+                >
+                  <Languages size={18} />
+                </button>
                 <button
                   data-testid="mobile-btn-theme"
                   onClick={toggleTheme}

@@ -5,7 +5,7 @@ import { X, MessageCircle } from "lucide-react";
 export function WhatsAppButton() {
   const [expanded, setExpanded] = useState(false);
 
-  const waNumber = "201000000000";
+  const waNumber = "201098277229";
   const waMessage = encodeURIComponent("Hello BLEND! I'd like to know more about your coffee and reservations.");
   const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
 

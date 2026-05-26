@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Check, Calendar, Clock, Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { branches } from "@/data/contactData";
 
 const timeSlots = [
   "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
@@ -11,7 +13,12 @@ const timeSlots = [
   "9:00 PM", "10:00 PM",
 ];
 
-const branches = ["Maadi", "Zamalek", "Downtown"];
+const timeSlotsAr = [
+  "٩:٠٠ صباحاً", "١٠:٠٠ صباحاً", "١١:٠٠ صباحاً", "١٢:٠٠ ظهراً",
+  "١:٠٠ مساءً", "٢:٠٠ مساءً", "٣:٠٠ مساءً", "٤:٠٠ مساءً",
+  "٥:٠٠ مساءً", "٦:٠٠ مساءً", "٧:٠٠ مساءً", "٨:٠٠ مساءً",
+  "٩:٠٠ مساءً", "١٠:٠٠ مساءً",
+];
 
 interface FormData {
   name: string;
@@ -25,20 +32,21 @@ interface FormData {
 }
 
 export default function Reservations() {
+  const { language, t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState<FormData>({
     name: "", phone: "", email: "", date: "", time: "",
-    guests: "2", branch: "Maadi", requests: "",
+    guests: "2", branch: branches[0].name, requests: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
 
   const validate = () => {
     const e: Partial<FormData> = {};
-    if (!form.name.trim()) e.name = "Name is required";
-    if (!form.phone.trim()) e.phone = "Phone is required";
-    if (!form.email.trim() || !form.email.includes("@")) e.email = "Valid email required";
-    if (!form.date) e.date = "Please select a date";
-    if (!form.time) e.time = "Please select a time";
+    if (!form.name.trim()) e.name = language === "ar" ? "الاسم مطلوب" : "Name is required";
+    if (!form.phone.trim()) e.phone = language === "ar" ? "الهاتف مطلوب" : "Phone is required";
+    if (!form.email.trim() || !form.email.includes("@")) e.email = language === "ar" ? "بريد إلكتروني صالح مطلوب" : "Valid email required";
+    if (!form.date) e.date = language === "ar" ? "يرجى اختيار تاريخ" : "Please select a date";
+    if (!form.time) e.time = language === "ar" ? "يرجى اختيار وقت" : "Please select a time";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -65,9 +73,9 @@ export default function Reservations() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Reserve a Table</p>
-            <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">We're expecting you.</h1>
-            <p className="text-muted-foreground">Book your table in seconds. We'll hold it for 15 minutes past your reserved time.</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("reservations.label")}</p>
+            <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("reservations.title")}</h1>
+            <p className="text-muted-foreground">{t("reservations.subtitle")}</p>
           </motion.div>
 
           <AnimatePresence mode="wait">
@@ -83,18 +91,18 @@ export default function Reservations() {
                 <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center mx-auto mb-6">
                   <Check className="text-accent" size={28} />
                 </div>
-                <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Your table is reserved.</h2>
-                <p className="text-muted-foreground mb-2">See you at BLEND {form.branch}.</p>
+                <h2 className="font-serif text-3xl font-bold text-foreground mb-3">{t("reservations.success")}</h2>
+                <p className="text-muted-foreground mb-2">{t("reservations.successMessage")} {language === "ar" ? branches.find(b => b.name === form.branch)?.nameAr : form.branch}.</p>
                 <p className="text-sm text-muted-foreground">
-                  {form.date} at {form.time} &middot; {form.guests} {parseInt(form.guests) === 1 ? "guest" : "guests"}
+                  {form.date} {language === "ar" ? "في" : "at"} {form.time} &middot; {form.guests} {parseInt(form.guests) === 1 ? (language === "ar" ? "ضيف" : "guest") : (language === "ar" ? "ضيوف" : "guests")}
                 </p>
-                <p className="text-xs text-muted-foreground mt-6">A confirmation has been sent to {form.email}</p>
+                <p className="text-xs text-muted-foreground mt-6">{language === "ar" ? "تم إرسال تأكيد إلى" : "A confirmation has been sent to"} {form.email}</p>
                 <button
                   data-testid="btn-new-reservation"
-                  onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", date: "", time: "", guests: "2", branch: "Maadi", requests: "" }); }}
+                  onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", date: "", time: "", guests: "2", branch: branches[0].name, requests: "" }); }}
                   className="mt-8 text-sm text-accent hover:underline"
                 >
-                  Make another reservation
+                  {t("reservations.newReservation")}
                 </button>
               </motion.div>
             ) : (
@@ -109,20 +117,20 @@ export default function Reservations() {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="res-name" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Full Name</label>
+                    <label htmlFor="res-name" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("reservations.name")}</label>
                     <input
                       id="res-name"
                       data-testid="input-reservation-name"
                       type="text"
                       value={form.name}
                       onChange={(e) => handleChange("name", e.target.value)}
-                      placeholder="Layla Hassan"
+                      placeholder={language === "ar" ? "ليلى حسن" : "Layla Hassan"}
                       className={`w-full px-4 py-3 bg-background border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all ${errors.name ? "border-destructive" : "border-border"}`}
                     />
                     {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                   </div>
                   <div>
-                    <label htmlFor="res-phone" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Phone</label>
+                    <label htmlFor="res-phone" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("reservations.phone")}</label>
                     <input
                       id="res-phone"
                       data-testid="input-reservation-phone"
@@ -137,7 +145,7 @@ export default function Reservations() {
                 </div>
 
                 <div>
-                  <label htmlFor="res-email" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Email</label>
+                  <label htmlFor="res-email" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("reservations.email")}</label>
                   <input
                     id="res-email"
                     data-testid="input-reservation-email"
@@ -153,7 +161,7 @@ export default function Reservations() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                   <div>
                     <label htmlFor="res-date" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                      <Calendar size={10} className="inline mr-1" />Date
+                      <Calendar size={10} className="inline mr-1" />{t("reservations.date")}
                     </label>
                     <input
                       id="res-date"
@@ -168,7 +176,7 @@ export default function Reservations() {
                   </div>
                   <div>
                     <label htmlFor="res-time" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                      <Clock size={10} className="inline mr-1" />Time
+                      <Clock size={10} className="inline mr-1" />{t("reservations.time")}
                     </label>
                     <select
                       id="res-time"
@@ -177,16 +185,16 @@ export default function Reservations() {
                       onChange={(e) => handleChange("time", e.target.value)}
                       className={`w-full px-4 py-3 bg-background border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all ${errors.time ? "border-destructive" : "border-border"}`}
                     >
-                      <option value="">Select</option>
-                      {timeSlots.map((slot) => (
-                        <option key={slot} value={slot}>{slot}</option>
+                      <option value="">{language === "ar" ? "اختر" : "Select"}</option>
+                      {(language === "ar" ? timeSlotsAr : timeSlots).map((slot, i) => (
+                        <option key={slot} value={timeSlots[i]}>{slot}</option>
                       ))}
                     </select>
                     {errors.time && <p className="text-xs text-destructive mt-1">{errors.time}</p>}
                   </div>
                   <div>
                     <label htmlFor="res-guests" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                      <Users size={10} className="inline mr-1" />Guests
+                      <Users size={10} className="inline mr-1" />{t("reservations.guests")}
                     </label>
                     <select
                       id="res-guests"
@@ -196,42 +204,42 @@ export default function Reservations() {
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                     >
                       {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-                        <option key={n} value={n}>{n} {n === 1 ? "guest" : "guests"}</option>
+                        <option key={n} value={n}>{n} {n === 1 ? (language === "ar" ? "ضيف" : "guest") : (language === "ar" ? "ضيوف" : "guests")}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="res-branch" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Branch</label>
+                  <label htmlFor="res-branch" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("reservations.branch")}</label>
                   <div className="flex gap-3" data-testid="branch-selector">
                     {branches.map((branch) => (
                       <button
-                        key={branch}
+                        key={branch.name}
                         type="button"
-                        data-testid={`btn-branch-${branch.toLowerCase()}`}
-                        onClick={() => handleChange("branch", branch)}
+                        data-testid={`btn-branch-${branch.name.toLowerCase()}`}
+                        onClick={() => handleChange("branch", branch.name)}
                         className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-200 ${
-                          form.branch === branch
+                          form.branch === branch.name
                             ? "bg-accent text-accent-foreground border-accent"
                             : "bg-background text-muted-foreground border-border hover:border-accent/40"
                         }`}
                       >
-                        {branch}
+                        {language === "ar" ? branch.nameAr : branch.name}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="res-requests" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">Special Requests <span className="normal-case font-normal">(optional)</span></label>
+                  <label htmlFor="res-requests" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{t("reservations.requests")} <span className="normal-case font-normal">{t("reservations.requestsOptional")}</span></label>
                   <textarea
                     id="res-requests"
                     data-testid="textarea-reservation-requests"
                     value={form.requests}
                     onChange={(e) => handleChange("requests", e.target.value)}
                     rows={3}
-                    placeholder="Allergies, celebrations, seating preferences..."
+                    placeholder={t("reservations.requestsPlaceholder")}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all resize-none"
                   />
                 </div>
@@ -241,7 +249,7 @@ export default function Reservations() {
                   data-testid="btn-submit-reservation"
                   className="w-full py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-all duration-200 hover:shadow-lg"
                 >
-                  Confirm Reservation
+                  {t("reservations.confirm")}
                 </button>
               </motion.form>
             )}
