@@ -71,6 +71,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=800&q=80",
     badge: "Premium",
     badgeAr: "فاخر",
+    bestSeller: true,
   },
   {
     id: 5,
@@ -99,6 +100,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1610889556528-9a770e32642f?w=800&q=80",
     badge: "Premium",
     badgeAr: "فاخر",
+    bestSeller: true,
   },
 
   // ═══════════════════════════════════════════════════════════
@@ -141,6 +143,7 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80",
     badge: "Traditional",
     badgeAr: "تقليدي",
+    bestSeller: true,
   },
   {
     id: 10,
@@ -152,6 +155,7 @@ export const products: Product[] = [
     description: "Medium-fine ground for pour-over methods. Light roast highlighting origin flavors.",
     descriptionAr: "مطحونة متوسطة الخشونة لطرق البور أوفر. تحميص خفيف يبرز نكهات المنشأ.",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    bestSeller: true,
   },
 
   // ═══════════════════════════════════════════════════════════
@@ -181,6 +185,7 @@ export const products: Product[] = [
     description: "Compatible with Nespresso machines. Intensity 6 - Smooth and balanced with caramel notes.",
     descriptionAr: "متوافقة مع آلات نسبريسو. كثافة 6 - ناعمة ومتوازنة مع نكهات الكراميل.",
     image: "https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=800&q=80",
+    bestSeller: true,
   },
   {
     id: 13,
@@ -222,6 +227,7 @@ export const products: Product[] = [
     badge: "Essential",
     badgeAr: "أساسي",
     featured: true,
+    bestSeller: true,
   },
   {
     id: 16,
@@ -243,6 +249,7 @@ export const products: Product[] = [
     description: "Ceramic V60 dripper with glass server and filters. Perfect for single-origin coffees.",
     descriptionAr: "قطارة V60 سيراميك مع إبريق زجاجي وفلاتر. مثالية للقهوة من مصدر واحد.",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    bestSeller: true,
   },
   {
     id: 18,
@@ -365,6 +372,7 @@ export const products: Product[] = [
     description: "Velvety microfoam with double ristretto shots. Stronger than a latte, smoother than a cappuccino.",
     descriptionAr: "رغوة مخملية مع جرعات ريستريتو مزدوجة. أقوى من اللاتيه، أنعم من الكابتشينو.",
     image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=800&q=80",
+    bestSeller: true,
   },
   {
     id: 29,
@@ -376,6 +384,7 @@ export const products: Product[] = [
     descriptionAr: "كولد برو ناعم منقوع لمدة 18 ساعة. حموضة منخفضة، حلو طبيعياً، يقدم على الثلج.",
     image: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80",
     featured: true,
+    bestSeller: true,
   },
   {
     id: 30,
@@ -386,6 +395,7 @@ export const products: Product[] = [
     description: "Refreshing iced latte with espresso and cold milk over ice. Perfect for hot days.",
     descriptionAr: "لاتيه مثلج منعش مع إسبريسو وحليب بارد على الثلج. مثالي للأيام الحارة.",
     image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80",
+    bestSeller: true,
   },
 ];
 

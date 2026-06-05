@@ -108,6 +108,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const { language } = useLanguage();
 
   /* Best sellers carousel */
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [Autoplay({ delay: 3200, stopOnInteraction: false })]);
@@ -329,16 +330,16 @@ export default function Home() {
           </div>
           <motion.div variants={fadeUp} className="hidden sm:flex gap-2">
             <button data-testid="btn-carousel-prev" onClick={scrollPrev} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
-              <ChevronLeft size={18} />
+              {language === "ar" ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
             </button>
             <button data-testid="btn-carousel-next" onClick={scrollNext} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
-              <ChevronRight size={18} />
+              {language === "ar" ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
             </button>
           </motion.div>
         </motion.div>
 
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-5">
+          <div className="flex gap-5" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
             {bestSellers.map((product, i) => (
               <div key={product.id} className="flex-none w-64 bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group" data-testid={`card-bestseller-${product.id}`}>
                 <div className="h-36 relative overflow-hidden">
