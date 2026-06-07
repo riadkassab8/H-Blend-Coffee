@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd artifacts/blend-coffee && npm install && npm run build",
+  "outputDirectory": "artifacts/blend-coffee/dist/public",
+  "installCommand": "cd artifacts/blend-coffee && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
