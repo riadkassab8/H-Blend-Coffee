@@ -17,6 +17,7 @@ import Reservations from "@/pages/Reservations";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import Cart from "@/pages/Cart";
+import Checkout from "@/pages/Checkout";
 import FAQ from "@/pages/FAQ";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ function AnimatedRoutes() {
           <Route path="/blog" component={Blog} />
           <Route path="/contact" component={Contact} />
           <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
           <Route path="/faq" component={FAQ} />
           <Route component={NotFound} />
         </Switch>

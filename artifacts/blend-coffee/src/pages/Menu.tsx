@@ -65,37 +65,39 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
       <div className="p-5">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-serif text-lg font-bold text-foreground leading-tight">{productName}</h3>
-          <button
+          <motion.button
             data-testid={`btn-wish-${product.id}`}
+            whileTap={{ scale: 0.9 }}
             onClick={(e) => {
               e.stopPropagation();
               setWished((v) => !v);
             }}
-            className="shrink-0 mt-0.5"
+            className="shrink-0 mt-0.5 cursor-pointer"
             aria-label="Add to wishlist"
           >
             <Heart
               size={16}
               className={`transition-all duration-200 ${wished ? "fill-accent text-accent" : "text-muted-foreground hover:text-accent"}`}
             />
-          </button>
+          </motion.button>
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">{productDescription}</p>
         <div className="flex items-center justify-between">
           <span className="font-semibold text-foreground" data-testid={`text-price-${product.id}`}>
             {product.price} {t("common.egp")}
           </span>
-          <button
+          <motion.button
             data-testid={`btn-add-cart-${product.id}`}
+            whileTap={{ scale: 0.95 }}
             onClick={(e) => {
               e.stopPropagation();
               addToCart(product.id, 1);
             }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-foreground text-xs font-semibold rounded-full hover:bg-accent/90 transition-all duration-200"
+            className="flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-foreground text-xs font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 cursor-pointer"
           >
             <ShoppingBag size={12} />
             {t("menu.addToCart")}
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -149,13 +151,14 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
               {productBadge}
             </span>
           )}
-          <button
+          <motion.button
             data-testid="btn-close-modal"
+            whileTap={{ scale: 0.9 }}
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10 cursor-pointer"
           >
             <X size={16} />
-          </button>
+          </motion.button>
         </div>
 
         <div className="p-6">
@@ -176,30 +179,33 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3 border border-border rounded-full px-4 py-2">
-              <button
+              <motion.button
                 data-testid="btn-qty-minus"
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setQty((v) => Math.max(1, v - 1))}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 <Minus size={14} />
-              </button>
+              </motion.button>
               <span className="w-6 text-center font-semibold text-foreground" data-testid="text-qty">{qty}</span>
-              <button
+              <motion.button
                 data-testid="btn-qty-plus"
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setQty((v) => v + 1)}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 <Plus size={14} />
-              </button>
+              </motion.button>
             </div>
-            <button
+            <motion.button
               data-testid="btn-modal-add-cart"
+              whileTap={{ scale: 0.95 }}
               onClick={handleAddToCart}
-              className="flex-1 flex items-center justify-center gap-2 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200"
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 cursor-pointer"
             >
               <ShoppingBag size={16} />
               {t("menu.addToCart")} &mdash; {product.price * qty} {t("common.egp")}
-            </button>
+            </motion.button>
           </div>
         </div>
       </motion.div>
@@ -239,18 +245,19 @@ export default function Menu() {
         {/* Category Tabs */}
         <div className="flex gap-2 flex-wrap mb-10" data-testid="category-tabs">
           {allCategories.map((cat) => (
-            <button
+            <motion.button
               key={cat}
               data-testid={`btn-category-${cat}`}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeCategory === cat
                   ? "bg-accent text-accent-foreground shadow-md"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
               }`}
             >
               {cat === "all" ? t("menu.all") : t(`category.${cat}`)}
-            </button>
+            </motion.button>
           ))}
         </div>
 
