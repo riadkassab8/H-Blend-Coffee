@@ -69,7 +69,7 @@ export function Footer() {
                     data-testid={`footer-link-${label.toLowerCase()}`}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
                   >
-                    {href === "/" ? (language === "ar" ? "الرئيسية" : "Home") : t(key)}
+                    {href === "/" ? t("nav.home") : t(key)}
                   </Link>
                 </li>
               ))}
@@ -109,7 +109,7 @@ export function Footer() {
 
         <div className="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; 2025 AROMA Coffee. {t("footer.rights")}
+            &copy; 2025 {t("footer.copyright")}. {t("footer.rights")}
           </p>
           <div className="flex gap-5">
             <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">

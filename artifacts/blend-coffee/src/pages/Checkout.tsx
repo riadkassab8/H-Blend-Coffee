@@ -62,23 +62,23 @@ export default function Checkout() {
     const newErrors: typeof errors = {};
 
     if (!formData.name || !validateName(formData.name)) {
-      newErrors.name = language === "ar" ? "الاسم يجب أن يكون 3-50 حرف" : "Name must be 3-50 characters";
+      newErrors.name = t("checkout.error.name");
     }
 
     if (!formData.phone || !validatePhone(formData.phone)) {
-      newErrors.phone = language === "ar" ? "رقم الهاتف غير صحيح" : "Invalid phone number";
+      newErrors.phone = t("checkout.error.phone");
     }
 
     if (!formData.address || !validateAddress(formData.address)) {
-      newErrors.address = language === "ar" ? "العنوان يجب أن يكون 10-200 حرف" : "Address must be 10-200 characters";
+      newErrors.address = t("checkout.error.address");
     }
 
     if (!formData.city) {
-      newErrors.city = language === "ar" ? "اختر المدينة" : "Please select city";
+      newErrors.city = t("checkout.error.city");
     }
 
     if ((selectedPayment === "instapay" || selectedPayment === "vodafone-cash") && !receiptImage) {
-      newErrors.receipt = language === "ar" ? "يرجى رفع إيصال الدفع" : "Please upload payment receipt";
+      newErrors.receipt = t("checkout.error.receipt");
     }
 
     setErrors(newErrors);
@@ -87,10 +87,14 @@ export default function Checkout() {
 
   const cartProducts = items.map((item) => {
     const product = products.find((p) => p.id === item.productId)!;
+    const roastLabel = item.roast ? t(`menu.roast.${item.roast.toLowerCase()}.label`) : null;
     return {
       ...product,
       displayName: language === "ar" ? product.nameAr : product.name,
       quantity: item.quantity,
+      roast: item.roast,
+      roastLabel,
+      cartKey: `${item.productId}-${item.roast ?? "none"}`,
     };
   });
 
@@ -148,8 +152,8 @@ export default function Checkout() {
 
       // Show toast notification
       toast({
-        title: language === "ar" ? "شكراً لاختياركم لنا" : "Thank you for choosing us",
-        description: language === "ar" ? "لمتابعة الطلب يرجى الضغط على زر الواتساب لمعرفة التفاصيل" : "To track your order, please click the WhatsApp button for details",
+        title: t("checkout.thankYou"),
+        description: t("checkout.thankYouDesc"),
         duration: 5000,
       });
     }, 3000);
@@ -158,7 +162,10 @@ export default function Checkout() {
   const generateWhatsAppMessage = (): string => {
     const products = orderData?.products || cartProducts;
     const itemsList = products
-      .map((item) => `• ${item.displayName} x${item.quantity} - ${item.price * item.quantity} ${t("common.egp")}`)
+      .map((item) => {
+        const roast = "roastLabel" in item && item.roastLabel ? ` (${item.roastLabel})` : "";
+        return `• ${item.displayName}${roast} x${item.quantity} - ${item.price * item.quantity} ${t("common.egp")}`;
+      })
       .join("\n");
 
     const currentSubtotal = orderData?.subtotal ?? subtotal;
@@ -219,7 +226,7 @@ export default function Checkout() {
               </p>
               <div className="bg-muted/50 border border-border rounded-xl p-4 inline-block">
                 <p className="text-sm text-foreground font-medium">
-                  {language === "ar" ? "رقم الطلب:" : "Order Number:"} <span className="font-mono text-accent">{orderNumber}</span>
+                  {t("checkout.orderNumberLabel")} <span className="font-mono text-accent">{orderNumber}</span>
                 </p>
               </div>
             </div>
@@ -231,11 +238,11 @@ export default function Checkout() {
                 className="flex items-center justify-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all"
               >
                 <MessageCircle size={18} />
-                {language === "ar" ? "تتبع طلبك" : "Track Order"}
+                {t("checkout.trackOrder")}
               </button>
               <Link href="/menu">
                 <a className="flex items-center justify-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all">
-                  {language === "ar" ? "العودة للقائمة" : "Back to Menu"}
+                  {t("checkout.backToMenu")}
                 </a>
               </Link>
             </div>
@@ -313,13 +320,13 @@ export default function Checkout() {
           </div>
           <div className="flex justify-center gap-16 mt-3">
             <span className={`text-xs font-medium ${currentStep === 1 ? "text-accent" : "text-muted-foreground"}`}>
-              {language === "ar" ? "معلومات التوصيل" : "Delivery Info"}
+              {t("checkout.step.delivery")}
             </span>
             <span className={`text-xs font-medium ${currentStep === 2 ? "text-accent" : "text-muted-foreground"}`}>
-              {language === "ar" ? "طريقة الدفع" : "Payment"}
+              {t("checkout.step.payment")}
             </span>
             <span className={`text-xs font-medium ${currentStep === 3 ? "text-accent" : "text-muted-foreground"}`}>
-              {language === "ar" ? "تأكيد الطلب" : "Confirm"}
+              {t("checkout.step.confirm")}
             </span>
           </div>
         </motion.div>
@@ -467,7 +474,7 @@ export default function Checkout() {
                       }}
                       className="flex items-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all"
                     >
-                      {language === "ar" ? "التالي" : "Next"} <ArrowRight size={16} />
+                      {t("common.next")} <ArrowRight size={16} className="icon-rtl" />
                     </button>
                   </div>
                 </motion.div>
@@ -610,17 +617,17 @@ export default function Checkout() {
                               </button>
                             </div>
                             <div className="border-t border-border pt-3">
-                              <p className="text-xs text-muted-foreground mb-2">{language === "ar" ? "المبلغ المطلوب" : "Amount to Pay"}</p>
+                              <p className="text-xs text-muted-foreground mb-2">{t("checkout.amountToPay")}</p>
                               <p className="font-mono text-2xl font-bold text-foreground">{total.toFixed(0)} {t("common.egp")}</p>
                             </div>
                           </div>
 
                           <div className="bg-muted/50 rounded-xl p-4 mb-4">
                             <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                              <li>{language === "ar" ? "افتح تطبيق InstaPay" : "Open InstaPay app"}</li>
-                              <li>{language === "ar" ? "امسح رمز QR أو أرسل للرقم أعلاه" : "Scan QR code or send to the number above"}</li>
-                              <li>{language === "ar" ? "أدخل المبلغ وأكد الدفع" : "Enter amount and confirm payment"}</li>
-                              <li>{language === "ar" ? "ارفع لقطة شاشة من الإيصال" : "Upload screenshot of receipt"}</li>
+                              <li>{t("checkout.instapay.step1")}</li>
+                              <li>{t("checkout.instapay.step2")}</li>
+                              <li>{t("checkout.instapay.step3")}</li>
+                              <li>{t("checkout.instapay.step4")}</li>
                             </ol>
                           </div>
 
@@ -662,17 +669,17 @@ export default function Checkout() {
                               </button>
                             </div>
                             <div className="border-t border-border pt-3">
-                              <p className="text-xs text-muted-foreground mb-2">{language === "ar" ? "المبلغ المطلوب" : "Amount to Pay"}</p>
+                              <p className="text-xs text-muted-foreground mb-2">{t("checkout.amountToPay")}</p>
                               <p className="font-mono text-2xl font-bold text-foreground">{total.toFixed(0)} {t("common.egp")}</p>
                             </div>
                           </div>
 
                           <div className="bg-muted/50 rounded-xl p-4 mb-4">
                             <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                              <li>{language === "ar" ? "افتح تطبيق Vodafone Cash" : "Open Vodafone Cash app"}</li>
-                              <li>{language === "ar" ? "اختر تحويل الأموال" : "Select money transfer"}</li>
-                              <li>{language === "ar" ? "أدخل الرقم أعلاه والمبلغ" : "Enter the number above and amount"}</li>
-                              <li>{language === "ar" ? "أكد التحويل وارفع الإيصال" : "Confirm transfer and upload receipt"}</li>
+                              <li>{t("checkout.vodafone.step1")}</li>
+                              <li>{t("checkout.vodafone.step2")}</li>
+                              <li>{t("checkout.vodafone.step3")}</li>
+                              <li>{t("checkout.vodafone.step4")}</li>
                             </ol>
                           </div>
 
@@ -711,14 +718,14 @@ export default function Checkout() {
                       className="flex items-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
                     >
                       <ChevronLeft size={16} />
-                      {language === "ar" ? "السابق" : "Previous"}
+                      {t("common.previous")}
                     </button>
                     <button
                       onClick={() => selectedPayment && setCurrentStep(3)}
                       disabled={!selectedPayment}
                       className="flex items-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {language === "ar" ? "التالي" : "Next"} <ArrowRight size={16} />
+                      {t("common.next")} <ArrowRight size={16} className="icon-rtl" />
                     </button>
                   </div>
                 </motion.div>
@@ -768,9 +775,13 @@ export default function Checkout() {
                       <h3 className="font-semibold text-foreground mb-3">{t("checkout.orderItems")}</h3>
                       <div className="space-y-2 max-h-40 overflow-y-auto">
                         {cartProducts.map((item) => (
-                          <div key={item.id} className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">{item.displayName} x{item.quantity}</span>
-                            <span className="text-foreground">{item.price * item.quantity} {t("common.egp")}</span>
+                          <div key={item.cartKey} className="flex justify-between text-sm gap-3">
+                            <span className="text-muted-foreground">
+                              {item.displayName}
+                              {item.roastLabel && <span className="text-accent"> · {item.roastLabel}</span>}
+                              {" "}x{item.quantity}
+                            </span>
+                            <span className="text-foreground shrink-0">{item.price * item.quantity} {t("common.egp")}</span>
                           </div>
                         ))}
                       </div>
@@ -851,7 +862,7 @@ export default function Checkout() {
                       className="flex items-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
                     >
                       <ChevronLeft size={16} />
-                      {language === "ar" ? "السابق" : "Previous"}
+                      {t("common.previous")}
                     </button>
                     <button
                       onClick={handlePayment}
@@ -907,9 +918,13 @@ export default function Checkout() {
               <h3 className="font-semibold text-foreground mb-3">{t("checkout.orderItems")}</h3>
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {cartProducts.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{item.displayName} x{item.quantity}</span>
-                    <span className="text-foreground">{item.price * item.quantity} {t("common.egp")}</span>
+                  <div key={item.cartKey} className="flex justify-between text-sm gap-3">
+                    <span className="text-muted-foreground">
+                      {item.displayName}
+                      {item.roastLabel && <span className="text-accent"> · {item.roastLabel}</span>}
+                      {" "}x{item.quantity}
+                    </span>
+                    <span className="text-foreground shrink-0">{item.price * item.quantity} {t("common.egp")}</span>
                   </div>
                 ))}
               </div>

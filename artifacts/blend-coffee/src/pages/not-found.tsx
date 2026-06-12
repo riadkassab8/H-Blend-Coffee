@@ -2,8 +2,10 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function NotFound() {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
@@ -16,24 +18,23 @@ export default function NotFound() {
         >
           <p className="font-serif text-8xl font-bold text-accent/20 mb-2">404</p>
           <h1 className="font-serif text-3xl font-bold text-foreground mb-4">
-            This cup is empty.
+            {t("notFound.title")}
           </h1>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            The page you&apos;re looking for has moved, been removed, or never existed.
-            Let&apos;s get you back to something worth tasting.
+            {t("notFound.description")}
           </p>
           <div className="flex gap-4 justify-center">
             <Link
               href="/"
               className="px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200"
             >
-              Back to Home
+              {t("notFound.backHome")}
             </Link>
             <Link
               href="/menu"
               className="px-6 py-3 border border-border text-foreground font-medium rounded-full hover:border-foreground/30 transition-all duration-200"
             >
-              View Menu
+              {t("notFound.viewMenu")}
             </Link>
           </div>
         </motion.div>

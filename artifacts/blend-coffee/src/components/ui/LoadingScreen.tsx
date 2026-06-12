@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function LoadingScreen() {
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window === "undefined") return false;
     const seen = sessionStorage.getItem("blend-loaded");
@@ -89,7 +91,7 @@ export function LoadingScreen() {
                 className="text-xs tracking-[0.25em] mt-2 uppercase"
                 style={{ color: "hsl(35 30% 88% / 0.35)" }}
               >
-                Cairo&apos;s Specialty Coffee
+                {t("loading.subtitle")}
               </motion.p>
             </motion.div>
 

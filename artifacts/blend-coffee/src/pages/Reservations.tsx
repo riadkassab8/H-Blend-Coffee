@@ -42,11 +42,11 @@ export default function Reservations() {
 
   const validate = () => {
     const e: Partial<FormData> = {};
-    if (!form.name.trim()) e.name = language === "ar" ? "الاسم مطلوب" : "Name is required";
-    if (!form.phone.trim()) e.phone = language === "ar" ? "الهاتف مطلوب" : "Phone is required";
-    if (!form.email.trim() || !form.email.includes("@")) e.email = language === "ar" ? "بريد إلكتروني صالح مطلوب" : "Valid email required";
-    if (!form.date) e.date = language === "ar" ? "يرجى اختيار تاريخ" : "Please select a date";
-    if (!form.time) e.time = language === "ar" ? "يرجى اختيار وقت" : "Please select a time";
+    if (!form.name.trim()) e.name = t("reservations.error.name");
+    if (!form.phone.trim()) e.phone = t("reservations.error.phone");
+    if (!form.email.trim() || !form.email.includes("@")) e.email = t("reservations.error.email");
+    if (!form.date) e.date = t("reservations.error.date");
+    if (!form.time) e.time = t("reservations.error.time");
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -94,9 +94,9 @@ export default function Reservations() {
                 <h2 className="font-serif text-3xl font-bold text-foreground mb-3">{t("reservations.success")}</h2>
                 <p className="text-muted-foreground mb-2">{t("reservations.successMessage")} {language === "ar" ? branches.find(b => b.name === form.branch)?.nameAr : form.branch}.</p>
                 <p className="text-sm text-muted-foreground">
-                  {form.date} {language === "ar" ? "في" : "at"} {form.time} &middot; {form.guests} {parseInt(form.guests) === 1 ? (language === "ar" ? "ضيف" : "guest") : (language === "ar" ? "ضيوف" : "guests")}
+                  {form.date} {t("reservations.at")} {form.time} &middot; {form.guests} {parseInt(form.guests) === 1 ? t("reservations.guestUnit") : t("reservations.guestsUnit")}
                 </p>
-                <p className="text-xs text-muted-foreground mt-6">{language === "ar" ? "تم إرسال تأكيد إلى" : "A confirmation has been sent to"} {form.email}</p>
+                <p className="text-xs text-muted-foreground mt-6">{t("reservations.confirmationSent")} {form.email}</p>
                 <button
                   data-testid="btn-new-reservation"
                   onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", date: "", time: "", guests: "2", branch: branches[0].name, requests: "" }); }}
@@ -124,7 +124,7 @@ export default function Reservations() {
                       type="text"
                       value={form.name}
                       onChange={(e) => handleChange("name", e.target.value)}
-                      placeholder={language === "ar" ? "ليلى حسن" : "Layla Hassan"}
+                      placeholder={t("reservations.placeholder.name")}
                       className={`w-full px-4 py-3 bg-background border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all ${errors.name ? "border-destructive" : "border-border"}`}
                     />
                     {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
@@ -185,7 +185,7 @@ export default function Reservations() {
                       onChange={(e) => handleChange("time", e.target.value)}
                       className={`w-full px-4 py-3 bg-background border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all ${errors.time ? "border-destructive" : "border-border"}`}
                     >
-                      <option value="">{language === "ar" ? "اختر" : "Select"}</option>
+                      <option value="">{t("reservations.select")}</option>
                       {(language === "ar" ? timeSlotsAr : timeSlots).map((slot, i) => (
                         <option key={slot} value={timeSlots[i]}>{slot}</option>
                       ))}
@@ -204,7 +204,7 @@ export default function Reservations() {
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                     >
                       {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-                        <option key={n} value={n}>{n} {n === 1 ? (language === "ar" ? "ضيف" : "guest") : (language === "ar" ? "ضيوف" : "guests")}</option>
+                        <option key={n} value={n}>{n} {n === 1 ? t("reservations.guestUnit") : t("reservations.guestsUnit")}</option>
                       ))}
                     </select>
                   </div>

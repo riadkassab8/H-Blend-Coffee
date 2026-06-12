@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-type Language = "en" | "ar";
+export type Language = "en" | "ar";
 
 interface LanguageContextType {
   language: Language;
@@ -19,6 +19,7 @@ const translations = {
     "nav.blog": "Blog",
     "nav.contact": "Contact",
     "nav.orderNow": "Order Now",
+    "nav.home": "Home",
     
     // Home
     "home.subtitle": "Cairo's Specialty Coffee",
@@ -34,15 +35,47 @@ const translations = {
     
     "home.why.label": "Why AROMA",
     "home.why.title": "Craft in every detail.",
+    "home.why.item1.title": "Single Origin Beans",
+    "home.why.item1.desc": "Every bean traced to its farm. Transparency in every bag.",
+    "home.why.item2.title": "Hand-Crafted Daily",
+    "home.why.item2.desc": "Roasted in small batches. Brewed to order. Never rushed.",
+    "home.why.item3.title": "Award-Winning Roasts",
+    "home.why.item3.desc": "8 regional awards since 2021. Quality you can taste.",
+    "home.why.item4.title": "Direct Trade",
+    "home.why.item4.desc": "We pay farmers above market. The cup reflects those relationships.",
     
     "home.bestsellers.label": "Best Sellers",
     "home.bestsellers.title": "What they order twice.",
     
+    "home.testimonials.label": "Testimonials",
+    "home.testimonials.title": "What Cairo is saying.",
+    
     "home.process.label": "Our Process",
     "home.process.title": "The Art of the Aroma.",
+    "home.process.step1.label": "Source",
+    "home.process.step1.desc": "We travel to origin annually — Ethiopia, Colombia, Guatemala — and build lasting partnerships with farmers.",
+    "home.process.step2.label": "Roast",
+    "home.process.step2.desc": "Small-batch in-house roasting. Every profile is logged and refined for each origin's unique character.",
+    "home.process.step3.label": "Craft",
+    "home.process.step3.desc": "Baristas trained for months. Equipment calibrated daily. Your cup is the last step in a long chain of care.",
+    "home.stats.origins": "Origins Sourced",
+    "home.stats.cups": "Cups Served",
+    "home.stats.awards": "Industry Awards",
+    "home.stats.craft": "Of Craft",
+    "home.stats.branches": "Cairo Branches",
+    "home.stats.directTrade": "Direct Trade",
+    "home.stats.yearsSuffix": " yrs",
     
     "home.gallery.label": "Gallery",
     "home.gallery.title": "Moments at AROMA.",
+    "home.gallery.caption1": "Ethiopian Yirgacheffe",
+    "home.gallery.caption2": "The Morning Pour",
+    "home.gallery.caption3": "Cold Brew Vessel",
+    "home.gallery.caption4": "House Roast",
+    "home.gallery.caption5": "Latte Art",
+    "home.gallery.caption6": "Bean Selection",
+    "home.gallery.caption7": "The Grind",
+    "home.gallery.caption8": "Espresso Pull",
     
     "home.newsletter.label": "Newsletter",
     "home.newsletter.title": "Join the AROMA Circle.",
@@ -57,6 +90,13 @@ const translations = {
     "menu.all": "All",
     "menu.addToCart": "Add",
     "menu.quickView": "Quick View",
+    "menu.roast.title": "Choose Your Roast",
+    "menu.roast.r1.label": "R1 Blend",
+    "menu.roast.r1.desc": "A balanced blend with a smooth taste and rich body — perfect for everyday enjoyment and classic coffee lovers.",
+    "menu.roast.r2.label": "R2 Blend",
+    "menu.roast.r2.desc": "A bolder blend with deeper flavor and intense notes — for those who prefer a clear, robust cup.",
+    "menu.roast.selected": "Selected roast",
+    "menu.ingredients": "Ingredients",
     
     // Categories
     "category.beans": "Coffee Beans",
@@ -83,6 +123,13 @@ const translations = {
     "cart.apply": "Apply",
     "cart.checkout": "Proceed to Checkout",
     "cart.freeDeliveryNote": "Add {amount} EGP more for free delivery",
+    "cart.each": "each",
+    "cart.toast.updated": "Updated cart",
+    "cart.toast.updatedDesc": "Item quantity updated",
+    "cart.toast.added": "Added to cart",
+    "cart.toast.addedDesc": "Item added successfully",
+    "cart.toast.removed": "Removed from cart",
+    "cart.toast.removedDesc": "Item removed successfully",
     
     // Footer
     "footer.tagline": "A luxury digital coffee experience. Rooted in Cairo. Reaching for the extraordinary.",
@@ -91,17 +138,21 @@ const translations = {
     "footer.contact": "Get in Touch",
     "footer.daily": "Daily: 7:00 AM – 11:00 PM",
     "footer.contactUs": "Contact us",
-    "footer.rights": "All rights reserved.",
+    "footer.rights": "All rights reserved",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
+    "footer.copyright": "AROMA Coffee",
     
     // Common
     "common.egp": "EGP",
     "common.loading": "Loading...",
+    "common.previous": "Previous",
+    "common.next": "Next",
+    "common.select": "Select",
     
     // About
     "about.label": "Our Story",
-    "about.title": "Born in Cairo. Rooted in Coffee.",
+    "about.title": "Born in Cairo.\nRooted in Coffee.",
     "about.subtitle": "We started AROMA because we believed Cairo deserved a coffee experience that didn't ask you to fly to Melbourne to find it. Three branches later, we still believe that.",
     "about.philosophy": "Philosophy",
     "about.philosophyTitle": "We believe a great cup of coffee is an act of care.",
@@ -132,6 +183,17 @@ const translations = {
     "reservations.success": "Your table is reserved.",
     "reservations.successMessage": "See you at AROMA",
     "reservations.newReservation": "Make another reservation",
+    "reservations.guestUnit": "guest",
+    "reservations.guestsUnit": "guests",
+    "reservations.at": "at",
+    "reservations.confirmationSent": "A confirmation has been sent to",
+    "reservations.select": "Select",
+    "reservations.error.name": "Name is required",
+    "reservations.error.phone": "Phone is required",
+    "reservations.error.email": "Valid email required",
+    "reservations.error.date": "Please select a date",
+    "reservations.error.time": "Please select a time",
+    "reservations.placeholder.name": "Layla Hassan",
     
     // Contact
     "contact.label": "Get in Touch",
@@ -149,6 +211,28 @@ const translations = {
     "contact.hours": "Opening Hours",
     "contact.locations": "Our Locations",
     "contact.generalLine": "General Line",
+    "contact.placeholder.name": "Your name",
+    "contact.placeholder.email": "you@example.com",
+    "contact.placeholder.subject": "What's this about?",
+    "contact.placeholder.message": "Tell us everything...",
+    "contact.whatsapp": "WhatsApp",
+    "contact.instagram": "Instagram",
+    "contact.facebook": "Facebook",
+    
+    // WhatsApp widget
+    "whatsapp.title": "Chat with AROMA",
+    "whatsapp.description": "Questions, reservations, or coffee talk — we're on WhatsApp.",
+    "whatsapp.open": "Open WhatsApp",
+    "whatsapp.ariaLabel": "Chat on WhatsApp",
+    "whatsapp.defaultMessage": "Hello AROMA! I'd like to know more about your coffee and reservations.",
+    
+    // Aria labels
+    "aria.cart": "Shopping cart",
+    "aria.language": "Toggle language",
+    "aria.theme": "Toggle theme",
+    "aria.menu": "Toggle mobile menu",
+    "aria.removeItem": "Remove item",
+    "aria.addToWishlist": "Add to wishlist",
     
     // Blog
     "blog.label": "The AROMA Journal",
@@ -216,6 +300,41 @@ const translations = {
     "checkout.receiptUploaded": "Receipt uploaded successfully",
     "checkout.sendViaWhatsApp": "Send Order via WhatsApp",
     "checkout.whatsappDesc": "Click to send your order details directly to our WhatsApp for faster processing",
+    "checkout.trackOrder": "Track Order",
+    "checkout.orderNumberLabel": "Order Number:",
+    "checkout.error.name": "Name must be 3-50 characters",
+    "checkout.error.phone": "Invalid phone number",
+    "checkout.error.address": "Address must be 10-200 characters",
+    "checkout.error.city": "Please select city",
+    "checkout.error.receipt": "Please upload payment receipt",
+    "checkout.thankYou": "Thank you for choosing us",
+    "checkout.thankYouDesc": "To track your order, please click the WhatsApp button for details",
+    "checkout.step.delivery": "Delivery Info",
+    "checkout.step.payment": "Payment",
+    "checkout.step.confirm": "Confirm",
+    "checkout.amountToPay": "Amount to Pay",
+    "checkout.backToMenu": "Back to Menu",
+    "checkout.instapay.step1": "Open InstaPay app",
+    "checkout.instapay.step2": "Scan QR code or send to the number above",
+    "checkout.instapay.step3": "Enter amount and confirm payment",
+    "checkout.instapay.step4": "Upload screenshot of receipt",
+    "checkout.vodafone.step1": "Open Vodafone Cash app",
+    "checkout.vodafone.step2": "Select money transfer",
+    "checkout.vodafone.step3": "Enter the number above and amount",
+    "checkout.vodafone.step4": "Confirm transfer and upload receipt",
+
+    // Not Found
+    "notFound.title": "This cup is empty.",
+    "notFound.description": "The page you're looking for has moved, been removed, or never existed. Let's get you back to something worth tasting.",
+    "notFound.backHome": "Back to Home",
+    "notFound.viewMenu": "View Menu",
+
+    // Loading
+    "loading.subtitle": "Cairo's Specialty Coffee",
+
+    // Meta
+    "meta.title": "AROMA Coffee — Cairo's Specialty Coffee",
+    "meta.description": "Single-origin beans, small-batch roasting, and three branches in Cairo. Discover AROMA Coffee.",
   },
   ar: {
     // Navbar
@@ -225,30 +344,63 @@ const translations = {
     "nav.blog": "المدونة",
     "nav.contact": "تواصل معنا",
     "nav.orderNow": "اطلب الآن",
+    "nav.home": "الرئيسية",
     
     // Home
     "home.subtitle": "قهوة مميزة من القاهرة",
-    "home.hero.title": "كل فنجان يحكي قصة.",
+    "home.hero.title": "كل فنجان يحكي قصة",
     "home.hero.description": "حبوب من مصدر واحد. تحميص بكميات صغيرة. ثلاثة فروع في القاهرة. شغف واحد.",
     "home.hero.exploreMenu": "استكشف القائمة",
     "home.hero.ourStory": "قصتنا",
     
     "home.featured.label": "المميزات",
-    "home.featured.title": "أفضل ما لدينا.",
+    "home.featured.title": "أفضل ما لدينا",
     "home.featured.viewAll": "عرض الكل",
     "home.featured.orderNow": "اطلب الآن",
     
     "home.why.label": "لماذا أروما",
-    "home.why.title": "الحرفية في كل التفاصيل.",
+    "home.why.title": "الحرفية في كل التفاصيل",
+    "home.why.item1.title": "حبوب من مصدر واحد",
+    "home.why.item1.desc": "كل حبة يمكن تتبعها إلى مزرعتها. شفافية في كل كيس.",
+    "home.why.item2.title": "صُنع يدوياً يومياً",
+    "home.why.item2.desc": "تحميص بكميات صغيرة. تحضير حسب الطلب. دون استعجال.",
+    "home.why.item3.title": "تحميص حائز على جوائز",
+    "home.why.item3.desc": "8 جوائز إقليمية منذ 2021. جودة يمكنك تذوقها.",
+    "home.why.item4.title": "تجارة مباشرة",
+    "home.why.item4.desc": "ندفع للمزارعين فوق سعر السوق. الفنجان يعكس تلك العلاقات.",
     
     "home.bestsellers.label": "الأكثر مبيعاً",
-    "home.bestsellers.title": "ما يطلبونه مرتين.",
+    "home.bestsellers.title": "ما يطلبونه مرتين",
+    
+    "home.testimonials.label": "آراء العملاء",
+    "home.testimonials.title": "ماذا يقول القاهريون.",
     
     "home.process.label": "عمليتنا",
     "home.process.title": "فن الأروما.",
+    "home.process.step1.label": "المصدر",
+    "home.process.step1.desc": "نسافر إلى بلد المنشأ سنوياً — إثيوبيا، كولومبيا، غواتيمالا — ونبني شراكات دائمة مع المزارعين.",
+    "home.process.step2.label": "التحميص",
+    "home.process.step2.desc": "تحميص داخلي بكميات صغيرة. كل ملف نكهة يُسجَّل ويُصقَل ليعكس طابع كل منشأ.",
+    "home.process.step3.label": "الحرفة",
+    "home.process.step3.desc": "باريستا مدربون لأشهر. معدات معايرة يومياً. فنجانك هو الخطوة الأخيرة في سلسلة طويلة من العناية.",
+    "home.stats.origins": "مناشئ القهوة",
+    "home.stats.cups": "أكواب قُدمت",
+    "home.stats.awards": "جوائز صناعية",
+    "home.stats.craft": "من الحرفة",
+    "home.stats.branches": "فروع بالقاهرة",
+    "home.stats.directTrade": "تجارة مباشرة",
+    "home.stats.yearsSuffix": " سنوات",
     
     "home.gallery.label": "المعرض",
     "home.gallery.title": "لحظات في أروما.",
+    "home.gallery.caption1": "يرغاتشيف الإثيوبية",
+    "home.gallery.caption2": "صباح القهوة",
+    "home.gallery.caption3": "وعاء الكولد برو",
+    "home.gallery.caption4": "التحميص المنزلي",
+    "home.gallery.caption5": "فن اللاتيه",
+    "home.gallery.caption6": "اختيار الحبوب",
+    "home.gallery.caption7": "الطحن",
+    "home.gallery.caption8": "جرعة الإسبريسو",
     
     "home.newsletter.label": "النشرة الإخبارية",
     "home.newsletter.title": "انضم إلى دائرة أروما.",
@@ -263,6 +415,13 @@ const translations = {
     "menu.all": "الكل",
     "menu.addToCart": "أضف",
     "menu.quickView": "عرض سريع",
+    "menu.roast.title": "اختر التوليفة",
+    "menu.roast.r1.label": "R1 توليفة",
+    "menu.roast.r1.desc": "توليفة متوازنة بطعم ناعم وقوام غني، مناسبة للاستمتاع اليومي ومحبّي القهوة الكلاسيكية.",
+    "menu.roast.r2.label": "R2 توليفة",
+    "menu.roast.r2.desc": "توليفة أقوى بنكهة أعمق ولمسات مكثفة، لمحبي القهوة ذات المذاق الواضح والجريء.",
+    "menu.roast.selected": "التوليفة المختارة",
+    "menu.ingredients": "المكونات",
     
     // Categories
     "category.beans": "حبوب القهوة",
@@ -289,6 +448,13 @@ const translations = {
     "cart.apply": "تطبيق",
     "cart.checkout": "إتمام الطلب",
     "cart.freeDeliveryNote": "أضف {amount} جنيه للحصول على توصيل مجاني",
+    "cart.each": "للقطعة",
+    "cart.toast.updated": "تم تحديث السلة",
+    "cart.toast.updatedDesc": "تم تحديث كمية المنتج",
+    "cart.toast.added": "أُضيف إلى السلة",
+    "cart.toast.addedDesc": "تمت إضافة المنتج بنجاح",
+    "cart.toast.removed": "أُزيل من السلة",
+    "cart.toast.removedDesc": "تمت إزالة المنتج بنجاح",
     
     // Footer
     "footer.tagline": "تجربة قهوة رقمية فاخرة. متجذرة في القاهرة. تسعى للتميز.",
@@ -300,14 +466,18 @@ const translations = {
     "footer.rights": "جميع الحقوق محفوظة.",
     "footer.privacy": "سياسة الخصوصية",
     "footer.terms": "شروط الخدمة",
+    "footer.copyright": "أروما كوفي",
     
     // Common
     "common.egp": "جنيه",
     "common.loading": "جاري التحميل...",
+    "common.previous": "السابق",
+    "common.next": "التالي",
+    "common.select": "اختر",
     
     // About
     "about.label": "قصتنا",
-    "about.title": "ولدنا في القاهرة. متجذرون في القهوة.",
+    "about.title": "ولدنا في القاهرة.\nمتجذرون في القهوة.",
     "about.subtitle": "بدأنا أروما لأننا آمنا أن القاهرة تستحق تجربة قهوة لا تطلب منك السفر إلى ملبورن للعثور عليها. بعد ثلاثة فروع، ما زلنا نؤمن بذلك.",
     "about.philosophy": "الفلسفة",
     "about.philosophyTitle": "نؤمن أن فنجان القهوة الرائع هو عمل من الرعاية.",
@@ -338,6 +508,17 @@ const translations = {
     "reservations.success": "تم حجز طاولتك.",
     "reservations.successMessage": "نراك في أروما",
     "reservations.newReservation": "إجراء حجز آخر",
+    "reservations.guestUnit": "ضيف",
+    "reservations.guestsUnit": "ضيوف",
+    "reservations.at": "في",
+    "reservations.confirmationSent": "تم إرسال تأكيد إلى",
+    "reservations.select": "اختر",
+    "reservations.error.name": "الاسم مطلوب",
+    "reservations.error.phone": "الهاتف مطلوب",
+    "reservations.error.email": "بريد إلكتروني صالح مطلوب",
+    "reservations.error.date": "يرجى اختيار تاريخ",
+    "reservations.error.time": "يرجى اختيار وقت",
+    "reservations.placeholder.name": "ليلى حسن",
     
     // Contact
     "contact.label": "تواصل معنا",
@@ -355,6 +536,28 @@ const translations = {
     "contact.hours": "ساعات العمل",
     "contact.locations": "مواقعنا",
     "contact.generalLine": "الخط العام",
+    "contact.placeholder.name": "اسمك",
+    "contact.placeholder.email": "you@example.com",
+    "contact.placeholder.subject": "عن ماذا؟",
+    "contact.placeholder.message": "أخبرنا بكل شيء...",
+    "contact.whatsapp": "واتساب",
+    "contact.instagram": "إنستغرام",
+    "contact.facebook": "فيسبوك",
+    
+    // WhatsApp widget
+    "whatsapp.title": "تحدث مع أروما",
+    "whatsapp.description": "أسئلة، حجوزات، أو حديث عن القهوة — نحن على واتساب.",
+    "whatsapp.open": "افتح واتساب",
+    "whatsapp.ariaLabel": "تحدث عبر واتساب",
+    "whatsapp.defaultMessage": "مرحباً أروما! أود معرفة المزيد عن قهوتكم والحجوزات.",
+    
+    // Aria labels
+    "aria.cart": "سلة التسوق",
+    "aria.language": "تبديل اللغة",
+    "aria.theme": "تبديل المظهر",
+    "aria.menu": "فتح القائمة",
+    "aria.removeItem": "إزالة المنتج",
+    "aria.addToWishlist": "أضف إلى المفضلة",
     
     // Blog
     "blog.label": "مجلة أروما",
@@ -422,8 +625,47 @@ const translations = {
     "checkout.receiptUploaded": "تم رفع الإيصال بنجاح",
     "checkout.sendViaWhatsApp": "إرسال الطلب عبر واتساب",
     "checkout.whatsappDesc": "اضغط لإرسال تفاصيل طلبك مباشرة إلى واتسابنا للمعالجة السريعة",
+    "checkout.trackOrder": "تتبع طلبك",
+    "checkout.orderNumberLabel": "رقم الطلب:",
+    "checkout.error.name": "الاسم يجب أن يكون 3-50 حرف",
+    "checkout.error.phone": "رقم الهاتف غير صحيح",
+    "checkout.error.address": "العنوان يجب أن يكون 10-200 حرف",
+    "checkout.error.city": "اختر المدينة",
+    "checkout.error.receipt": "يرجى رفع إيصال الدفع",
+    "checkout.thankYou": "شكراً لاختياركم لنا",
+    "checkout.thankYouDesc": "لمتابعة الطلب يرجى الضغط على زر الواتساب لمعرفة التفاصيل",
+    "checkout.step.delivery": "معلومات التوصيل",
+    "checkout.step.payment": "طريقة الدفع",
+    "checkout.step.confirm": "تأكيد الطلب",
+    "checkout.amountToPay": "المبلغ المطلوب",
+    "checkout.backToMenu": "العودة للقائمة",
+    "checkout.instapay.step1": "افتح تطبيق InstaPay",
+    "checkout.instapay.step2": "امسح رمز QR أو أرسل للرقم أعلاه",
+    "checkout.instapay.step3": "أدخل المبلغ وأكد الدفع",
+    "checkout.instapay.step4": "ارفع لقطة شاشة من الإيصال",
+    "checkout.vodafone.step1": "افتح تطبيق Vodafone Cash",
+    "checkout.vodafone.step2": "اختر تحويل الأموال",
+    "checkout.vodafone.step3": "أدخل الرقم أعلاه والمبلغ",
+    "checkout.vodafone.step4": "أكد التحويل وارفع الإيصال",
+
+    // Not Found
+    "notFound.title": "هذا الفنجان فارغ.",
+    "notFound.description": "الصفحة التي تبحث عنها انتقلت أو حُذفت أو لم تكن موجودة. لنعد بك إلى ما يستحق التذوق.",
+    "notFound.backHome": "العودة للرئيسية",
+    "notFound.viewMenu": "عرض القائمة",
+
+    // Loading
+    "loading.subtitle": "قهوة مميزة من القاهرة",
+
+    // Meta
+    "meta.title": "أروما — قهوة مميزة من القاهرة",
+    "meta.description": "حبوب من مصدر واحد، تحميص بكميات صغيرة، وثلاثة فروع في القاهرة. اكتشف قهوة أروما.",
   },
 };
+
+export function getTranslation(language: Language, key: string): string {
+  return translations[language][key as keyof typeof translations.en] || key;
+}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
@@ -435,8 +677,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("aroma-language", language);
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    document.title = getTranslation(language, "meta.title");
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", getTranslation(language, "meta.description"));
     
-    // Add/remove Arabic font class
     if (language === "ar") {
       document.documentElement.classList.add("font-arabic");
     } else {

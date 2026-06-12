@@ -232,6 +232,20 @@
   .font-arabic .font-serif {
     font-family: 'Tajawal', 'Playfair Display', Georgia, serif;
   }
+
+  [dir="rtl"] body {
+    text-align: right;
+  }
+}
+
+@layer utilities {
+  .icon-rtl {
+    transform: scaleX(1);
+  }
+
+  [dir="rtl"] .icon-rtl {
+    transform: scaleX(-1);
+  }
 }
 
 @layer utilities {

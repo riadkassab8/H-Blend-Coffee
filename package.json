@@ -2,9 +2,15 @@
   "name": "workspace",
   "version": "0.0.0",
   "license": "MIT",
+  "workspaces": [
+    "artifacts/*",
+    "lib/*",
+    "scripts"
+  ],
   "scripts": {
-    "dev": "npm run dev --workspace=artifacts/blend-coffee",
-    "build": "npm run typecheck && npm run build --workspaces --if-present",
+    "dev": "npm run dev -w @workspace/blend-coffee",
+    "build": "npm run build -w @workspace/blend-coffee",
+    "build:all": "npm run typecheck && npm run build --workspaces --if-present",
     "typecheck:libs": "tsc --build",
     "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present"
   },

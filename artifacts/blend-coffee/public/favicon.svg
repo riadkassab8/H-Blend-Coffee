@@ -1,3 +1,10 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <rect width="180" height="180" rx="40" fill="#1a120c"/>
+  <path d="M48 78h64v52c0 16-12 30-32 30s-32-14-32-30V78z" fill="#b8732a"/>
+  <path d="M48 78h64v10H48V78z" fill="#d4a04a"/>
+  <path d="M112 90h10c10 0 18 8 18 18s-8 18-18 18h-10" stroke="#e8b84a" stroke-width="7" stroke-linecap="round"/>
+  <path d="M68 58c0-6 3-12 8-12" stroke="#e8b84a" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  <path d="M84 52c0-8 4-14 10-14" stroke="#e8b84a" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <path d="M100 58c0-6 3-12 8-12" stroke="#e8b84a" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+  <ellipse cx="80" cy="88" rx="22" ry="6" fill="#f5d9a8" opacity="0.25"/>
 </svg>

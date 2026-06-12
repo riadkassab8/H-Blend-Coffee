@@ -81,7 +81,7 @@ export default function Blog() {
                     <span>{language === "ar" ? featured.readTimeAr : featured.readTime}</span>
                   </div>
                   <span className="flex items-center gap-1 text-sm text-accent font-medium group-hover:gap-2 transition-all duration-200">
-                    {t("blog.read")} <ArrowRight size={14} />
+                    {t("blog.read")} <ArrowRight size={14} className="icon-rtl" />
                   </span>
                 </div>
               </div>
@@ -92,14 +92,14 @@ export default function Blog() {
         {/* Search + Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1 max-w-sm">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Search size={15} className="absolute start-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               data-testid="input-blog-search"
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("blog.search")}
-              className="w-full pl-10 pr-4 py-2.5 bg-card border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+              className="w-full ps-10 pe-4 py-2.5 bg-card border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
             />
           </div>
           <div className="flex gap-2 flex-wrap">

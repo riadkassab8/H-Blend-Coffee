@@ -1,66 +1,78 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { toast } from "@/hooks/use-toast";
+import type { RoastLevel } from "@/data/roastProfiles";
+import { getTranslation, type Language } from "@/contexts/LanguageContext";
+
+function cartT(key: string) {
+  const lang = (localStorage.getItem("aroma-language") || "en") as Language;
+  return getTranslation(lang, key);
+}
 
 interface CartItem {
   productId: number;
   quantity: number;
+  roast?: RoastLevel;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (productId: number, quantity?: number) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  addToCart: (productId: number, quantity?: number, roast?: RoastLevel) => void;
+  removeFromCart: (productId: number, roast?: RoastLevel) => void;
+  updateQuantity: (productId: number, quantity: number, roast?: RoastLevel) => void;
   clearCart: () => void;
   getTotalItems: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+function matchesCartItem(item: CartItem, productId: number, roast?: RoastLevel) {
+  return item.productId === productId && item.roast === roast;
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (productId: number, quantity: number = 1) => {
+  const addToCart = (productId: number, quantity: number = 1, roast?: RoastLevel) => {
     setItems((prev) => {
-      const existing = prev.find((item) => item.productId === productId);
+      const existing = prev.find((item) => matchesCartItem(item, productId, roast));
       if (existing) {
         toast({
-          title: "Updated cart",
-          description: "Item quantity updated",
+          title: cartT("cart.toast.updated"),
+          description: cartT("cart.toast.updatedDesc"),
           duration: 3000,
         });
         return prev.map((item) =>
-          item.productId === productId
+          matchesCartItem(item, productId, roast)
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
       toast({
-        title: "Added to cart",
-        description: "Item added successfully",
+        title: cartT("cart.toast.added"),
+        description: cartT("cart.toast.addedDesc"),
         duration: 3000,
       });
-      return [...prev, { productId, quantity }];
+      return [...prev, { productId, quantity, roast }];
     });
   };
 
-  const removeFromCart = (productId: number) => {
-    setItems((prev) => prev.filter((item) => item.productId !== productId));
+  const removeFromCart = (productId: number, roast?: RoastLevel) => {
+    setItems((prev) => prev.filter((item) => !matchesCartItem(item, productId, roast)));
     toast({
-      title: "Removed from cart",
-      description: "Item removed successfully",
+      title: cartT("cart.toast.removed"),
+      description: cartT("cart.toast.removedDesc"),
       duration: 3000,
     });
   };
 
-  const updateQuantity = (productId: number, quantity: number) => {
+  const updateQuantity = (productId: number, quantity: number, roast?: RoastLevel) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, roast);
       return;
     }
     setItems((prev) =>
       prev.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
+        matchesCartItem(item, productId, roast) ? { ...item, quantity } : item
       )
     );
   };

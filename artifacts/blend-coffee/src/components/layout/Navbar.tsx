@@ -84,11 +84,11 @@ export function Navbar() {
                 href="/cart"
                 data-testid="btn-cart"
                 className="hidden lg:flex w-9 h-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 relative"
-                aria-label="Shopping cart"
+                aria-label={t("aria.cart")}
               >
                 <ShoppingBag size={18} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent text-accent-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -end-1 w-4 h-4 bg-accent text-accent-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
                     {totalItems}
                   </span>
                 )}
@@ -98,7 +98,7 @@ export function Navbar() {
                 data-testid="btn-toggle-language"
                 onClick={toggleLanguage}
                 className="hidden lg:flex w-9 h-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200"
-                aria-label="Toggle language"
+                aria-label={t("aria.language")}
               >
                 <Languages size={16} />
               </button>
@@ -107,7 +107,7 @@ export function Navbar() {
                 data-testid="btn-toggle-theme"
                 onClick={toggleTheme}
                 className="hidden lg:flex w-9 h-9 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200"
-                aria-label="Toggle theme"
+                aria-label={t("aria.theme")}
               >
                 {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
               </button>
@@ -125,7 +125,7 @@ export function Navbar() {
                 data-testid="btn-mobile-menu"
                 onClick={() => setMobileOpen((v) => !v)}
                 className="lg:hidden w-9 h-9 flex items-center justify-center text-foreground"
-                aria-label="Toggle mobile menu"
+                aria-label={t("aria.menu")}
               >
                 <AnimatePresence mode="wait">
                   {mobileOpen ? (
@@ -160,7 +160,7 @@ export function Navbar() {
                 {navLinks.map(({ href, label }, i) => (
                   <motion.div
                     key={href}
-                    initial={{ opacity: 0, x: -30 }}
+                    initial={{ opacity: 0, x: language === "ar" ? 30 : -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * i, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >

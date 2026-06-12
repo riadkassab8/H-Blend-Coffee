@@ -6,9 +6,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { featuredProducts, bestSellers } from "@/data/products";
+import { products as allProducts } from "@/data/products";
 import { testimonials } from "@/data/testimonials";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslatedProducts } from "@/hooks/useTranslatedData";
 
 /* ── Animated counter ── */
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -65,10 +66,33 @@ const beans = [
   { x: 5, y: 45, size: 14, delay: 1.5 }, { x: 92, y: 55, size: 20, delay: 0.9 },
 ];
 
-const galleryCaptions = [
-  "Ethiopian Yirgacheffe", "The Morning Pour", "Cold Brew Vessel",
-  "House Roast", "Latte Art", "Bean Selection", "The Grind", "Espresso Pull",
-];
+const galleryImageKeys = [
+  "home.gallery.caption1", "home.gallery.caption2", "home.gallery.caption3",
+  "home.gallery.caption4", "home.gallery.caption5", "home.gallery.caption6",
+  "home.gallery.caption7", "home.gallery.caption8",
+] as const;
+
+const whyItemKeys = [
+  { Icon: Leaf, titleKey: "home.why.item1.title", descKey: "home.why.item1.desc" },
+  { Icon: Flame, titleKey: "home.why.item2.title", descKey: "home.why.item2.desc" },
+  { Icon: Trophy, titleKey: "home.why.item3.title", descKey: "home.why.item3.desc" },
+  { Icon: Globe, titleKey: "home.why.item4.title", descKey: "home.why.item4.desc" },
+] as const;
+
+const processStepKeys = [
+  { labelKey: "home.process.step1.label", descKey: "home.process.step1.desc" },
+  { labelKey: "home.process.step2.label", descKey: "home.process.step2.desc" },
+  { labelKey: "home.process.step3.label", descKey: "home.process.step3.desc" },
+] as const;
+
+const statKeys = [
+  { value: 12, suffix: "", labelKey: "home.stats.origins" },
+  { value: 3000000, suffix: "+", labelKey: "home.stats.cups" },
+  { value: 8, suffix: "", labelKey: "home.stats.awards" },
+  { value: 5, suffixKey: "home.stats.yearsSuffix", labelKey: "home.stats.craft" },
+  { value: 3, suffix: "", labelKey: "home.stats.branches" },
+  { value: 100, suffix: "%", labelKey: "home.stats.directTrade" },
+] as const;
 
 const galleryImages = [
   "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=80",
@@ -79,19 +103,6 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80",
   "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&q=80",
   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
-];
-
-const whyItems = [
-  { Icon: Leaf, title: "Single Origin Beans", desc: "Every bean traced to its farm. Transparency in every bag." },
-  { Icon: Flame, title: "Hand-Crafted Daily", desc: "Roasted in small batches. Brewed to order. Never rushed." },
-  { Icon: Trophy, title: "Award-Winning Roasts", desc: "8 regional awards since 2021. Quality you can taste." },
-  { Icon: Globe, title: "Direct Trade", desc: "We pay farmers above market. The cup reflects those relationships." },
-];
-
-const processSteps = [
-  { label: "Source", desc: "We travel to origin annually — Ethiopia, Colombia, Guatemala — and build lasting partnerships with farmers." },
-  { label: "Roast", desc: "Small-batch in-house roasting. Every profile is logged and refined for each origin's unique character." },
-  { label: "Craft", desc: "Baristas trained for months. Equipment calibrated daily. Your cup is the last step in a long chain of care." },
 ];
 
 const gradients = [
@@ -108,17 +119,40 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
+  const isRtl = language === "ar";
+  const translatedProducts = useTranslatedProducts();
+  const bestSellers = translatedProducts.filter((p) => allProducts.find((o) => o.id === p.id)?.bestSeller);
+  const featured = translatedProducts.filter((p) => allProducts.find((o) => o.id === p.id)?.featured);
 
-  /* Best sellers carousel */
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [Autoplay({ delay: 3200, stopOnInteraction: false })]);
+  const carouselDirection = isRtl ? "rtl" : "ltr";
+  const bestsellerAutoplay = useRef(Autoplay({ delay: 3200, stopOnInteraction: false }));
+  const testimonialAutoplay = useRef(Autoplay({ delay: 4000, stopOnInteraction: false }));
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start", direction: carouselDirection, containScroll: "trimSnaps" },
+    [bestsellerAutoplay.current]
+  );
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
-  /* Testimonials carousel */
-  const [testEmblaRef, testEmblaApi] = useEmblaCarousel({ loop: true, align: "center" }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
+  const [testEmblaRef, testEmblaApi] = useEmblaCarousel(
+    { loop: true, align: "center", direction: carouselDirection, containScroll: "trimSnaps" },
+    [testimonialAutoplay.current]
+  );
   const testPrev = () => testEmblaApi?.scrollPrev();
   const testNext = () => testEmblaApi?.scrollNext();
+
+  useEffect(() => {
+    emblaApi?.reInit({ direction: carouselDirection });
+  }, [emblaApi, carouselDirection]);
+
+  useEffect(() => {
+    testEmblaApi?.reInit({ direction: carouselDirection });
+  }, [testEmblaApi, carouselDirection]);
+
+  const PrevIcon = isRtl ? ChevronRight : ChevronLeft;
+  const NextIcon = isRtl ? ChevronLeft : ChevronRight;
 
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -165,7 +199,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xs font-semibold uppercase tracking-[0.3em] text-accent/80 mb-6"
           >
-            Cairo&apos;s Specialty Coffee
+            {t("home.subtitle")}
           </motion.p>
 
           <motion.h1
@@ -174,9 +208,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="font-serif text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-none tracking-tight mb-6"
           >
-            Where Every<br />
-            <span className="text-accent italic">Cup</span> Tells<br />
-            a Story.
+            {t("home.hero.title")}
           </motion.h1>
 
           <motion.p
@@ -185,7 +217,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-base lg:text-lg text-white/50 font-light mb-10 max-w-md mx-auto leading-relaxed"
           >
-            Single-origin beans. Small-batch roasting. Three branches in Cairo. One obsession.
+            {t("home.hero.description")}
           </motion.p>
 
           <motion.div
@@ -195,10 +227,10 @@ export default function Home() {
             className="flex flex-wrap gap-4 justify-center"
           >
             <Link href="/menu" data-testid="hero-btn-menu" className="px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 hover:shadow-xl hover:shadow-accent/20">
-              Explore Menu
+              {t("home.hero.exploreMenu")}
             </Link>
             <Link href="/about" data-testid="hero-btn-story" className="px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-all duration-200">
-              Our Story
+              {t("home.hero.ourStory")}
             </Link>
           </motion.div>
         </motion.div>
@@ -229,17 +261,17 @@ export default function Home() {
           variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
           className="mb-12"
         >
-          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Signatures</motion.p>
-          <div className="flex items-end justify-between">
-            <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Our finest cups.</motion.h2>
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("home.featured.label")}</motion.p>
+          <div className="flex items-end justify-between gap-4">
+            <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.featured.title")}</motion.h2>
             <motion.div variants={fadeUp}>
-              <Link href="/menu" data-testid="link-view-all-menu" className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors">View all <ArrowRight size={14} /></Link>
+              <Link href="/menu" data-testid="link-view-all-menu" className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors">{t("home.featured.viewAll")} <ArrowRight size={14} className="icon-rtl" /></Link>
             </motion.div>
           </div>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product, i) => (
+          {featured.map((product, i) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 30 }}
@@ -262,7 +294,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 {product.badge && (
-                  <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full">
+                  <span className="absolute top-3 start-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full">
                     {product.badge}
                   </span>
                 )}
@@ -271,8 +303,8 @@ export default function Home() {
                 <h3 className="font-serif text-lg font-bold text-foreground mb-1">{product.name}</h3>
                 <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{product.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-foreground">{product.price} EGP</span>
-                  <Link href="/menu" data-testid={`btn-order-featured-${product.id}`} className="text-xs font-semibold text-accent hover:underline">Order Now
+                  <span className="font-semibold text-foreground">{product.price} {t("common.egp")}</span>
+                  <Link href="/menu" data-testid={`btn-order-featured-${product.id}`} className="text-xs font-semibold text-accent hover:underline">{t("home.featured.orderNow")}
                   </Link>
                 </div>
               </div>
@@ -291,11 +323,11 @@ export default function Home() {
             variants={fadeUp}
             className="text-center mb-16"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Why AROMA</p>
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Craft in every detail.</h2>
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("home.why.label")}</p>
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.why.title")}</h2>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyItems.map((item, i) => (
+            {whyItemKeys.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 24 }}
@@ -307,8 +339,8 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
                   <item.Icon size={18} className="text-accent" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                <h3 className="font-semibold text-foreground mb-2">{t(item.titleKey)}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -325,39 +357,45 @@ export default function Home() {
           className="flex items-end justify-between mb-10"
         >
           <div>
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">Best Sellers</motion.p>
-            <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold text-foreground">What they order twice.</motion.h2>
+            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">{t("home.bestsellers.label")}</motion.p>
+            <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.bestsellers.title")}</motion.h2>
           </div>
           <motion.div variants={fadeUp} className="hidden sm:flex gap-2">
-            <button data-testid="btn-carousel-prev" onClick={scrollPrev} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
-              {language === "ar" ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+            <button data-testid="btn-carousel-prev" onClick={scrollPrev} aria-label={t("common.previous")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+              <PrevIcon size={18} />
             </button>
-            <button data-testid="btn-carousel-next" onClick={scrollNext} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
-              {language === "ar" ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+            <button data-testid="btn-carousel-next" onClick={scrollNext} aria-label={t("common.next")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+              <NextIcon size={18} />
             </button>
           </motion.div>
         </motion.div>
 
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-5" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
-            {bestSellers.map((product, i) => (
-              <div key={product.id} className="flex-none w-64 bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group" data-testid={`card-bestseller-${product.id}`}>
-                <div className="h-36 relative overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
-                    }}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-serif font-bold text-foreground mb-1">{product.name}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{product.description}</p>
-                  <span className="text-sm font-semibold text-foreground">{product.price} EGP</span>
+          <div className="flex touch-pan-y -me-5">
+            {bestSellers.map((product) => (
+              <div
+                key={product.id}
+                className="min-w-0 shrink-0 grow-0 basis-[78%] sm:basis-64 pe-5"
+                data-testid={`card-bestseller-${product.id}`}
+              >
+                <div className="h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group">
+                  <div className="h-36 relative overflow-hidden">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
+                      }}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-serif font-bold text-foreground mb-1">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{product.description}</p>
+                    <span className="text-sm font-semibold text-foreground">{product.price} {t("common.egp")}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -375,17 +413,17 @@ export default function Home() {
               viewport={{ once: true }}
               variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
             >
-              <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent/80 mb-4">Our Process</motion.p>
+              <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent/80 mb-4">{t("home.process.label")}</motion.p>
               <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold leading-tight mb-8">
-                The Art of<br />the <span className="text-accent italic">Aroma.</span>
+                {t("home.process.title")}
               </motion.h2>
               <div className="space-y-6">
-                {processSteps.map((step, i) => (
+                {processStepKeys.map((step, i) => (
                   <motion.div key={i} variants={fadeUp} className="flex gap-5 border-b border-white/10 pb-6 last:border-0">
                     <span className="font-serif text-2xl font-bold text-accent/40 shrink-0 mt-0.5">0{i + 1}</span>
                     <div>
-                      <h3 className="font-semibold text-white mb-1">{step.label}</h3>
-                      <p className="text-sm text-white/50 leading-relaxed">{step.desc}</p>
+                      <h3 className="font-semibold text-white mb-1">{t(step.labelKey)}</h3>
+                      <p className="text-sm text-white/50 leading-relaxed">{t(step.descKey)}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -393,14 +431,7 @@ export default function Home() {
             </motion.div>
 
             <div className="grid grid-cols-3 gap-4">
-              {[
-                { value: 12, suffix: "", label: "Origins Sourced" },
-                { value: 3000000, suffix: "+", label: "Cups Served" },
-                { value: 8, suffix: "", label: "Industry Awards" },
-                { value: 5, suffix: " yrs", label: "Of Craft" },
-                { value: 3, suffix: "", label: "Cairo Branches" },
-                { value: 100, suffix: "%", label: "Direct Trade" },
-              ].map((stat, i) => (
+              {statKeys.map((stat, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -411,9 +442,9 @@ export default function Home() {
                   className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center"
                 >
                   <p className="font-serif text-2xl lg:text-3xl font-bold text-accent">
-                    <Counter target={stat.value} suffix={stat.suffix} />
+                    <Counter target={stat.value} suffix={"suffixKey" in stat ? t(stat.suffixKey) : (stat.suffix ?? "")} />
                   </p>
-                  <p className="text-xs text-white/40 mt-1 leading-tight">{stat.label}</p>
+                  <p className="text-xs text-white/40 mt-1 leading-tight">{t(stat.labelKey)}</p>
                 </motion.div>
               ))}
             </div>
@@ -431,32 +462,38 @@ export default function Home() {
             variants={fadeUp}
             className="text-center mb-14"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Testimonials</p>
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">What Cairo is saying.</h2>
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("home.testimonials.label")}</p>
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.testimonials.title")}</h2>
           </motion.div>
 
           <div className="relative">
             <div className="overflow-hidden" ref={testEmblaRef}>
-              <div className="flex gap-5">
-                {testimonials.map((t) => (
+              <div className="flex touch-pan-y -me-5">
+                {testimonials.map((item) => (
                   <div
-                    key={t.id}
-                    data-testid={`testimonial-${t.id}`}
-                    className="flex-none w-full sm:w-[480px] bg-card/60 backdrop-blur-sm border border-border rounded-2xl p-8"
+                    key={item.id}
+                    className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[480px] pe-5"
                   >
-                    <div className="flex gap-1 mb-5">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} size={14} className="fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed mb-6 italic">&ldquo;{t.text}&rdquo;</p>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center shrink-0">
-                        <span className="text-xs font-bold text-accent">{t.initials}</span>
+                    <div
+                      data-testid={`testimonial-${item.id}`}
+                      className="h-full bg-card/60 backdrop-blur-sm border border-border rounded-2xl p-8"
+                    >
+                      <div className="flex gap-1 mb-5">
+                        {Array.from({ length: item.rating }).map((_, i) => (
+                          <Star key={i} size={14} className="fill-accent text-accent" />
+                        ))}
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.location}</p>
+                      <p className="text-muted-foreground leading-relaxed mb-6 italic">
+                        &ldquo;{isRtl ? item.textAr : item.text}&rdquo;
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center shrink-0">
+                          <span className="text-xs font-bold text-accent">{item.initials}</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">{isRtl && item.nameAr ? item.nameAr : item.name}</p>
+                          <p className="text-xs text-muted-foreground">{isRtl && item.locationAr ? item.locationAr : item.location}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -464,11 +501,11 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center gap-3 mt-8">
-              <button data-testid="btn-testimonial-prev" onClick={testPrev} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
-                <ChevronLeft size={16} />
+              <button data-testid="btn-testimonial-prev" onClick={testPrev} aria-label={t("common.previous")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
+                <PrevIcon size={16} />
               </button>
-              <button data-testid="btn-testimonial-next" onClick={testNext} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
-                <ChevronRight size={16} />
+              <button data-testid="btn-testimonial-next" onClick={testNext} aria-label={t("common.next")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
+                <NextIcon size={16} />
               </button>
             </div>
           </div>
@@ -484,12 +521,12 @@ export default function Home() {
           variants={fadeUp}
           className="text-center mb-12"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Gallery</p>
-          <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">Moments at AROMA.</h2>
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("home.gallery.label")}</p>
+          <h2 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.gallery.title")}</h2>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {galleryCaptions.map((caption, i) => (
+          {galleryImageKeys.map((captionKey, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
@@ -502,7 +539,7 @@ export default function Home() {
               <div className={`relative ${i === 0 || i === 5 ? "h-64 md:h-full md:min-h-[320px]" : "h-40 md:h-48"} overflow-hidden`}>
                 <img 
                   src={galleryImages[i]} 
-                  alt={caption}
+                  alt={t(captionKey)}
                   loading="lazy"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23333" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ECoffee%3C/text%3E%3C/svg%3E';
@@ -512,8 +549,8 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <span className="text-white/80 text-xs font-medium uppercase tracking-widest">{caption}</span>
+              <div className="absolute bottom-0 inset-x-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <span className="text-white/80 text-xs font-medium uppercase tracking-widest">{t(captionKey)}</span>
               </div>
             </motion.div>
           ))}
@@ -529,9 +566,9 @@ export default function Home() {
             viewport={{ once: true }}
             variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
           >
-            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Newsletter</motion.p>
-            <motion.h2 variants={fadeUp} className="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-3">Join the AROMA Circle.</motion.h2>
-            <motion.p variants={fadeUp} className="text-sm text-muted-foreground mb-8">No spam. Coffee wisdom only.</motion.p>
+            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("home.newsletter.label")}</motion.p>
+            <motion.h2 variants={fadeUp} className="font-serif text-3xl lg:text-4xl font-bold text-foreground mb-3">{t("home.newsletter.title")}</motion.h2>
+            <motion.p variants={fadeUp} className="text-sm text-muted-foreground mb-8">{t("home.newsletter.description")}</motion.p>
             <motion.div variants={fadeUp}>
               <AnimatePresence mode="wait">
                 {subscribed ? (
@@ -541,7 +578,7 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-accent font-semibold"
                   >
-                    Welcome to the circle.
+                    {t("home.newsletter.success")}
                   </motion.p>
                 ) : (
                   <motion.form
@@ -555,7 +592,7 @@ export default function Home() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder="your@email.com"
+                      placeholder={t("home.newsletter.placeholder")}
                       className="flex-1 px-4 py-3 bg-background border border-border rounded-full text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all text-sm"
                     />
                     <button
@@ -563,7 +600,7 @@ export default function Home() {
                       data-testid="btn-newsletter-subscribe"
                       className="px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 text-sm whitespace-nowrap"
                     >
-                      Subscribe
+                      {t("home.newsletter.subscribe")}
                     </button>
                   </motion.form>
                 )}

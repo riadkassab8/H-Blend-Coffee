@@ -80,7 +80,7 @@ export default function Contact() {
                         value={form.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                         required
-                        placeholder={language === "ar" ? "اسمك" : "Your name"}
+                        placeholder={t("contact.placeholder.name")}
                         className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                       />
                     </div>
@@ -92,7 +92,7 @@ export default function Contact() {
                         value={form.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                         required
-                        placeholder="you@example.com"
+                        placeholder={t("contact.placeholder.email")}
                         className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                       />
                     </div>
@@ -104,7 +104,7 @@ export default function Contact() {
                       type="text"
                       value={form.subject}
                       onChange={(e) => handleChange("subject", e.target.value)}
-                      placeholder={language === "ar" ? "عن ماذا؟" : "What's this about?"}
+                      placeholder={t("contact.placeholder.subject")}
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all"
                     />
                   </div>
@@ -116,7 +116,7 @@ export default function Contact() {
                       onChange={(e) => handleChange("message", e.target.value)}
                       required
                       rows={5}
-                      placeholder={language === "ar" ? "أخبرنا بكل شيء..." : "Tell us everything..."}
+                      placeholder={t("contact.placeholder.message")}
                       className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all resize-none"
                     />
                   </div>
@@ -197,7 +197,7 @@ export default function Contact() {
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366] text-white font-semibold text-sm hover:bg-[#1db954] transition-colors"
               >
                 <MessageCircle size={16} />
-                WhatsApp
+                {t("contact.whatsapp")}
               </a>
               <a
                 href="https://instagram.com"
@@ -207,7 +207,7 @@ export default function Contact() {
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-white hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:border-transparent transition-all duration-300 text-sm font-medium"
               >
                 <Instagram size={16} />
-                Instagram
+                {t("contact.instagram")}
               </a>
               <a
                 href="https://facebook.com"
@@ -217,7 +217,7 @@ export default function Contact() {
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-border text-muted-foreground hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] transition-all duration-300 text-sm font-medium"
               >
                 <Facebook size={16} />
-                Facebook
+                {t("contact.facebook")}
               </a>
             </div>
           </motion.div>

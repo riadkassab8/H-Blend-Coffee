@@ -26,6 +26,8 @@ export default function Cart() {
       ...product,
       displayName: language === "ar" ? product.nameAr : product.name,
       quantity: item.quantity,
+      roast: item.roast,
+      cartKey: `${item.productId}-${item.roast ?? "none"}`,
     };
   });
 
@@ -63,7 +65,7 @@ export default function Cart() {
             <p className="text-muted-foreground mb-6">{t("cart.empty")}</p>
             <Link href="/menu">
               <a className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all">
-                {t("cart.browseMenu")} <ArrowRight size={16} />
+                {t("cart.browseMenu")} <ArrowRight size={16} className="icon-rtl" />
               </a>
             </Link>
           </motion.div>
@@ -74,10 +76,10 @@ export default function Cart() {
               <AnimatePresence>
                 {cartProducts.map((item, i) => (
                   <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
+                    key={item.cartKey}
+                    initial={{ opacity: 0, x: language === "ar" ? 20 : -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
+                    exit={{ opacity: 0, x: language === "ar" ? -20 : 20 }}
                     transition={{ delay: i * 0.05 }}
                     className="bg-card border border-border rounded-2xl p-5 flex gap-5"
                   >
@@ -96,12 +98,17 @@ export default function Cart() {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="font-serif text-lg font-bold text-foreground">{item.displayName}</h3>
-                          <p className="text-sm text-muted-foreground">{item.price} {t("common.egp")} each</p>
+                          <p className="text-sm text-muted-foreground">
+                            {item.price} {t("common.egp")} {t("cart.each")}
+                            {item.roast && (
+                              <span className="ms-2 text-accent">· {t(`menu.roast.${item.roast.toLowerCase()}.label`)}</span>
+                            )}
+                          </p>
                         </div>
                         <button
-                          onClick={() => removeFromCart(item.id)}
+                          onClick={() => removeFromCart(item.id, item.roast)}
                           className="text-muted-foreground hover:text-destructive transition-colors"
-                          aria-label="Remove item"
+                          aria-label={t("aria.removeItem")}
                         >
                           <Trash2 size={16} />
                         </button>
@@ -109,14 +116,14 @@ export default function Cart() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 border border-border rounded-full px-4 py-2">
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity - 1, item.roast)}
                             className="text-muted-foreground hover:text-foreground transition-colors"
                           >
                             <Minus size={14} />
                           </button>
                           <span className="w-6 text-center font-semibold text-foreground">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity + 1, item.roast)}
                             className="text-muted-foreground hover:text-foreground transition-colors"
                           >
                             <Plus size={14} />
@@ -189,7 +196,7 @@ export default function Cart() {
 
               <Link href="/checkout">
                 <a className="w-full flex items-center justify-center gap-2 py-4 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 hover:shadow-lg">
-                  {t("cart.checkout")} <ArrowRight size={16} />
+                  {t("cart.checkout")} <ArrowRight size={16} className="icon-rtl" />
                 </a>
               </Link>
 

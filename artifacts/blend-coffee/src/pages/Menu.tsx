@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ShoppingBag, X, Plus, Minus } from "lucide-react";
+import { Heart, ShoppingBag, X, Plus, Minus, Flame } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { products, categoryLabels, type Product } from "@/data/products";
+import { hasRoastProfile, roastLevels, type RoastLevel } from "@/data/roastProfiles";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -52,7 +53,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         {productBadge && (
-          <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full z-10">
+          <span className="absolute top-3 start-3 text-xs font-semibold px-2.5 py-1 bg-accent text-accent-foreground rounded-full z-10">
             {productBadge}
           </span>
         )}
@@ -62,7 +63,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-5 cursor-pointer" onClick={() => onOpen(product)}>
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-serif text-lg font-bold text-foreground leading-tight">{productName}</h3>
           <motion.button
@@ -73,7 +74,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
               setWished((v) => !v);
             }}
             className="shrink-0 mt-0.5 cursor-pointer"
-            aria-label="Add to wishlist"
+            aria-label={t("aria.addToWishlist")}
           >
             <Heart
               size={16}
@@ -104,17 +105,91 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
   );
 }
 
+function RoastSelector({
+  selected,
+  onSelect,
+}: {
+  selected: RoastLevel;
+  onSelect: (roast: RoastLevel) => void;
+}) {
+  const { t } = useLanguage();
+
+  const roastMeta: Record<RoastLevel, { intensity: number; tone: string }> = {
+    R1: { intensity: 2, tone: "from-amber-200/20 to-amber-500/10" },
+    R2: { intensity: 4, tone: "from-amber-700/25 to-amber-900/15" },
+  };
+
+  return (
+    <div className="mb-6">
+      <div className="flex items-center gap-2 mb-3">
+        <Flame size={14} className="text-accent" />
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          {t("menu.roast.title")}
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {roastLevels.map((level) => {
+          const isSelected = selected === level;
+          const meta = roastMeta[level];
+          return (
+            <button
+              key={level}
+              type="button"
+              data-testid={`btn-roast-${level.toLowerCase()}`}
+              onClick={() => onSelect(level)}
+              className={`relative text-start rounded-xl border p-4 transition-all duration-200 cursor-pointer bg-gradient-to-br ${meta.tone} ${
+                isSelected
+                  ? "border-accent ring-2 ring-accent/30 shadow-md"
+                  : "border-border hover:border-accent/40"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="font-serif text-base font-bold text-foreground">
+                  {t(`menu.roast.${level.toLowerCase()}.label`)}
+                </span>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        i < meta.intensity ? "bg-accent" : "bg-border"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t(`menu.roast.${level.toLowerCase()}.desc`)}
+              </p>
+              {isSelected && (
+                <span className="absolute top-3 end-3 w-2 h-2 rounded-full bg-accent" />
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   const [qty, setQty] = useState(1);
+  const [selectedRoast, setSelectedRoast] = useState<RoastLevel>("R1");
   const { addToCart } = useCart();
   const { t, language } = useLanguage();
+  const showRoast = hasRoastProfile(product.category);
+
+  useEffect(() => {
+    setQty(1);
+    setSelectedRoast("R1");
+  }, [product.id]);
   
   const productName = language === "ar" ? product.nameAr : product.name;
   const productDescription = language === "ar" ? product.descriptionAr : product.description;
   const productBadge = product.badge ? (language === "ar" ? product.badgeAr : product.badge) : undefined;
 
   const handleAddToCart = () => {
-    addToCart(product.id, qty);
+    addToCart(product.id, qty, showRoast ? selectedRoast : undefined);
     onClose();
   };
 
@@ -147,7 +222,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
           {productBadge && (
-            <span className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 bg-accent text-accent-foreground rounded-full z-10">
+            <span className="absolute top-4 start-4 text-xs font-semibold px-3 py-1 bg-accent text-accent-foreground rounded-full z-10">
               {productBadge}
             </span>
           )}
@@ -155,7 +230,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             data-testid="btn-close-modal"
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10 cursor-pointer"
+            className="absolute top-4 end-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10 cursor-pointer"
           >
             <X size={16} />
           </motion.button>
@@ -170,9 +245,15 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             {t(`category.${product.category}`)}
           </span>
           <p className="text-muted-foreground leading-relaxed mb-4">{productDescription}</p>
+          {product.weight && (
+            <p className="text-xs text-muted-foreground mb-4">{product.weight}</p>
+          )}
+          {showRoast && (
+            <RoastSelector selected={selectedRoast} onSelect={setSelectedRoast} />
+          )}
           {product.ingredients && (
             <div className="mb-6 p-4 bg-background rounded-xl border border-border">
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">Ingredients</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">{t("menu.ingredients")}</p>
               <p className="text-sm text-foreground">{product.ingredients}</p>
             </div>
           )}

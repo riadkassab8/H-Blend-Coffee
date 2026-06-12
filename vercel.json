@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/public",
+  "buildCommand": "npm run build -w @workspace/blend-coffee",
+  "outputDirectory": "artifacts/blend-coffee/dist/public",
   "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
