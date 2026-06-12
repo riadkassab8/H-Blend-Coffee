@@ -206,7 +206,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="font-serif text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-none tracking-tight mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-none tracking-tight mb-6"
           >
             {t("home.hero.title")}
           </motion.h1>
@@ -361,10 +361,10 @@ export default function Home() {
             <motion.h2 variants={fadeUp} className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("home.bestsellers.title")}</motion.h2>
           </div>
           <motion.div variants={fadeUp} className="hidden sm:flex gap-2">
-            <button data-testid="btn-carousel-prev" onClick={scrollPrev} aria-label={t("common.previous")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+            <button data-testid="btn-carousel-prev" onClick={scrollPrev} aria-label={t("common.previous")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all cursor-pointer">
               <PrevIcon size={18} />
             </button>
-            <button data-testid="btn-carousel-next" onClick={scrollNext} aria-label={t("common.next")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+            <button data-testid="btn-carousel-next" onClick={scrollNext} aria-label={t("common.next")} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all cursor-pointer">
               <NextIcon size={18} />
             </button>
           </motion.div>
@@ -375,7 +375,7 @@ export default function Home() {
             {bestSellers.map((product) => (
               <div
                 key={product.id}
-                className="min-w-0 shrink-0 grow-0 basis-[78%] sm:basis-64 pe-5"
+                className="min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-[70%] md:basis-64 pe-5"
                 data-testid={`card-bestseller-${product.id}`}
               >
                 <div className="h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group">
@@ -501,10 +501,10 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center gap-3 mt-8">
-              <button data-testid="btn-testimonial-prev" onClick={testPrev} aria-label={t("common.previous")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
+              <button data-testid="btn-testimonial-prev" onClick={testPrev} aria-label={t("common.previous")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all cursor-pointer">
                 <PrevIcon size={16} />
               </button>
-              <button data-testid="btn-testimonial-next" onClick={testNext} aria-label={t("common.next")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all">
+              <button data-testid="btn-testimonial-next" onClick={testNext} aria-label={t("common.next")} className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all cursor-pointer">
                 <NextIcon size={16} />
               </button>
             </div>
@@ -598,7 +598,7 @@ export default function Home() {
                     <button
                       type="submit"
                       data-testid="btn-newsletter-subscribe"
-                      className="px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 text-sm whitespace-nowrap"
+                      className="px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all duration-200 text-sm whitespace-nowrap cursor-pointer"
                     >
                       {t("home.newsletter.subscribe")}
                     </button>

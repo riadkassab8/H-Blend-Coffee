@@ -34,7 +34,7 @@ export default function FAQ() {
           className="text-center mb-12"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("faq.label")}</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             {t("faq.title")}
           </h1>
           <p className="text-muted-foreground mb-8">
@@ -85,7 +85,7 @@ export default function FAQ() {
                     >
                       <button
                         onClick={() => setOpenIndex(isOpen ? null : globalIndex)}
-                        className="w-full flex items-center justify-between p-5 text-left hover:bg-muted/30 transition-colors"
+                        className="w-full flex items-center justify-between p-5 text-left hover:bg-muted/30 transition-colors cursor-pointer"
                       >
                         <span className="font-semibold text-foreground pr-4">{language === "ar" ? faq.questionAr : faq.question}</span>
                         <ChevronDown

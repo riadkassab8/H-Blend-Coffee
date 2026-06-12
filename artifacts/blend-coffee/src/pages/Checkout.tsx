@@ -472,7 +472,7 @@ export default function Checkout() {
                           validateForm();
                         }
                       }}
-                      className="flex items-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all"
+                      className="flex items-center gap-2 px-6 sm:px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all"
                     >
                       {t("common.next")} <ArrowRight size={16} className="icon-rtl" />
                     </button>
@@ -501,7 +501,7 @@ export default function Checkout() {
                       {t("checkout.paymentMethod")}
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                       {/* InstaPay */}
                       <motion.button
                         whileHover={{ scale: 1.02 }}
@@ -712,10 +712,10 @@ export default function Checkout() {
                   </motion.div>
 
                   {/* Navigation Buttons */}
-                  <div className="flex justify-between">
+                  <div className="flex flex-col sm:flex-row justify-between gap-3">
                     <button
                       onClick={() => setCurrentStep(1)}
-                      className="flex items-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
+                      className="flex items-center justify-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
                     >
                       <ChevronLeft size={16} />
                       {t("common.previous")}
@@ -723,7 +723,7 @@ export default function Checkout() {
                     <button
                       onClick={() => selectedPayment && setCurrentStep(3)}
                       disabled={!selectedPayment}
-                      className="flex items-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {t("common.next")} <ArrowRight size={16} className="icon-rtl" />
                     </button>
@@ -856,10 +856,10 @@ export default function Checkout() {
                   </motion.div>
 
                   {/* Navigation Buttons */}
-                  <div className="flex justify-between">
+                  <div className="flex flex-col sm:flex-row justify-between gap-3">
                     <button
                       onClick={() => setCurrentStep(2)}
-                      className="flex items-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
+                      className="flex items-center justify-center gap-2 px-8 py-3 bg-muted text-muted-foreground font-semibold rounded-full hover:bg-muted/80 transition-all"
                     >
                       <ChevronLeft size={16} />
                       {t("common.previous")}
@@ -867,7 +867,7 @@ export default function Checkout() {
                     <button
                       onClick={handlePayment}
                       disabled={!selectedPayment}
-                      className="flex items-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center gap-2 px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:bg-accent/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {paymentStep === "processing" ? (
                         <>

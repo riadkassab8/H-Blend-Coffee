@@ -26,7 +26,7 @@ export default function About() {
           <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
             {t("about.label")}
           </motion.p>
-          <motion.h1 variants={fadeUp} className="font-serif text-5xl lg:text-7xl font-bold text-foreground leading-tight mb-6 whitespace-pre-line">
+          <motion.h1 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 whitespace-pre-line">
             {t("about.title")}
           </motion.h1>
           <motion.p variants={fadeUp} className="text-lg text-muted-foreground leading-relaxed max-w-xl">

@@ -320,7 +320,7 @@ export default function Menu() {
           className="mb-10"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("menu.label")}</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">{t("menu.title")}</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t("menu.title")}</h1>
         </motion.div>
 
         {/* Category Tabs */}

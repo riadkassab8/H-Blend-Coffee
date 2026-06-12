@@ -100,7 +100,7 @@ export default function Reservations() {
                 <button
                   data-testid="btn-new-reservation"
                   onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", email: "", date: "", time: "", guests: "2", branch: branches[0].name, requests: "" }); }}
-                  className="mt-8 text-sm text-accent hover:underline"
+                  className="mt-8 text-sm text-accent hover:underline cursor-pointer"
                 >
                   {t("reservations.newReservation")}
                 </button>
@@ -219,7 +219,7 @@ export default function Reservations() {
                         type="button"
                         data-testid={`btn-branch-${branch.name.toLowerCase()}`}
                         onClick={() => handleChange("branch", branch.name)}
-                        className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-200 ${
+                        className={`flex-1 py-3 rounded-lg border text-sm font-medium transition-all duration-200 cursor-pointer ${
                           form.branch === branch.name
                             ? "bg-accent text-accent-foreground border-accent"
                             : "bg-background text-muted-foreground border-border hover:border-accent/40"
@@ -247,7 +247,7 @@ export default function Reservations() {
                 <button
                   type="submit"
                   data-testid="btn-submit-reservation"
-                  className="w-full py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-all duration-200 hover:shadow-lg"
+                  className="w-full py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-all duration-200 hover:shadow-lg cursor-pointer"
                 >
                   {t("reservations.confirm")}
                 </button>

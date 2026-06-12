@@ -32,7 +32,7 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("contact.label")}</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("contact.title")}</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("contact.title")}</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
             {t("contact.subtitle")}
           </p>
@@ -57,7 +57,7 @@ export default function Contact() {
                   <button
                     data-testid="btn-send-another"
                     onClick={() => { setSubmitted(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
-                    className="mt-6 text-sm text-accent hover:underline"
+                    className="mt-6 text-sm text-accent hover:underline cursor-pointer"
                   >
                     {t("contact.sendAnother")}
                   </button>

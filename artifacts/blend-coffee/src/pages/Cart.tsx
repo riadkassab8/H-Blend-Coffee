@@ -48,7 +48,7 @@ export default function Cart() {
           className="mb-10"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("cart.title")}</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
             {items.length === 0 ? t("cart.empty") : `${items.length} ${items.length === 1 ? t("cart.item") : t("cart.items")}`}
           </h1>
         </motion.div>
@@ -81,9 +81,9 @@ export default function Cart() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: language === "ar" ? -20 : 20 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-card border border-border rounded-2xl p-5 flex gap-5"
+                    className="bg-card border border-border rounded-2xl p-4 sm:p-5 flex gap-4 sm:gap-5"
                   >
-                    <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0">
                       <img 
                         src={item.image} 
                         alt={item.displayName} 
@@ -107,7 +107,7 @@ export default function Cart() {
                         </div>
                         <button
                           onClick={() => removeFromCart(item.id, item.roast)}
-                          className="text-muted-foreground hover:text-destructive transition-colors"
+                          className="text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
                           aria-label={t("aria.removeItem")}
                         >
                           <Trash2 size={16} />
@@ -117,14 +117,14 @@ export default function Cart() {
                         <div className="flex items-center gap-3 border border-border rounded-full px-4 py-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1, item.roast)}
-                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                           >
                             <Minus size={14} />
                           </button>
                           <span className="w-6 text-center font-semibold text-foreground">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1, item.roast)}
-                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                           >
                             <Plus size={14} />
                           </button>
@@ -142,7 +142,7 @@ export default function Cart() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-card border border-border rounded-2xl p-6 h-fit sticky top-24"
+              className="bg-card border border-border rounded-2xl p-4 sm:p-6 h-fit sticky top-24"
             >
               <h2 className="font-serif text-2xl font-bold text-foreground mb-6">{t("cart.orderSummary")}</h2>
 
@@ -187,7 +187,7 @@ export default function Cart() {
                   />
                   <button
                     onClick={applyPromo}
-                    className="px-4 py-2 bg-accent/10 text-accent font-semibold rounded-lg hover:bg-accent/20 transition-all text-sm"
+                    className="px-4 py-2 bg-accent/10 text-accent font-semibold rounded-lg hover:bg-accent/20 transition-all text-sm cursor-pointer"
                   >
                     {t("cart.apply")}
                   </button>

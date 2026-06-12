@@ -25,6 +25,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -56,7 +57,9 @@ export function Navbar() {
             <Link
               href="/"
               data-testid="nav-logo"
-              className="font-serif text-2xl font-bold tracking-[0.2em] text-foreground hover:text-accent transition-colors duration-300"
+              className={`font-serif text-2xl font-bold tracking-[0.2em] transition-colors duration-300 hover:text-accent ${
+                theme === "light" && !scrolled ? "text-white" : "text-foreground"
+              }`}
             >
               AROMA
             </Link>

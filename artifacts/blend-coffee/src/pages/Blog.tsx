@@ -44,7 +44,7 @@ export default function Blog() {
           className="max-w-xl mb-12"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">{t("blog.label")}</p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("blog.title")}</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t("blog.title")}</h1>
           <p className="text-muted-foreground">{t("blog.subtitle")}</p>
         </motion.div>
 
